@@ -1,10 +1,12 @@
 import './style.scss';
+import Login from '../Login';
 
-function Index() {
+function App() {
   return (
     <div className="App">
+      <Login />
     </div>
   );
 }
 
-export default Index;
+export default App;
