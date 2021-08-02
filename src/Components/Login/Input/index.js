@@ -7,6 +7,7 @@ function Input({
     value = '',
     onChange = () => {},
     name = '',
+    info = '',
 }) {
     const [isSelected, setSelected] = useState(false);
 
@@ -28,12 +29,13 @@ function Input({
             </label>
             <input
                 name={name}
-                onChange={onChange(name)}
+                onChange={onChange}
                 onBlur={handleBlur}
                 onFocus={handleFocus}
                 value={value}
                 type={type}
             />
+            <small> {info} </small>
         </div>
     );
 }

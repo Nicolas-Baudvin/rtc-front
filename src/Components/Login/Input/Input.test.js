@@ -2,7 +2,7 @@ import { mount, shallow } from 'enzyme';
 import Input from './index';
 
 describe('<Input />', () => {
-    const wrapper = mount(<Input value={''} />);
+    const wrapper = mount(<Input />);
     it('should render', () => {
         expect(wrapper).toBeTruthy();
     });
