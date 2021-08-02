@@ -2,25 +2,15 @@ import './style.scss';
 import Input from './Input';
 import { useReducer } from 'react';
 import { initialState, reducer } from './reducer';
+import { dispatchByInputName, inputs } from './util';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
-const makeAction = (type, payload) => ({
-    type,
-    payload,
-});
-
-const dispatchByInputName = (inputName, dispatch, event) =>
-    ({
-        email: dispatch(makeAction('NEW_EMAIL', event.target.value)),
-        username: dispatch(makeAction('NEW_USERNAME', event.target.value)),
-        password: dispatch(makeAction('NEW_PASSWORD', event.target.value)),
-        confPass: dispatch(makeAction('NEW_CONF_PASS', event.target.value)),
-    }[inputName]);
-
-function Login() {
+function Login({ page = 'signup' }) {
     const [state, dispatch] = useReducer(reducer, initialState);
 
     const onChange = (inputName) => (event) => {
-        dispatchByInputName(inputName, dispatch, event);
+        dispatchByInputName(inputName, dispatch, event)();
     };
 
     return (
@@ -31,16 +21,35 @@ function Login() {
             <h2>Inscription</h2>
 
             <form className={'form'} action="">
-                <Input
-                    label={'Email'}
-                    name={'email'}
-                    type={'email'}
-                    value={state.email}
-                    onChange={onChange}
-                />
+                {inputs(page).map((input, i) => (
+                    <Input
+                        key={i}
+                        label={input.label}
+                        name={input.name}
+                        type={input.type}
+                        value={state[input.name]}
+                        onChange={onChange(input.name)}
+                        info={input.info}
+                    />
+                ))}
+
+                {page === 'signup' && (
+                    <Link to={'/connexion'}>Tu as déjà un compte ?</Link>
+                )}
+                {page === 'login' && (
+                    <Link to="/oublie-mot-de-passe">Mot de passe oublié ?</Link>
+                )}
+                {page === 'login' && (
+                    <Link to="/inscription">Tu n'as pas de compte ?</Link>
+                )}
+                <button type="submit">S'inscrire</button>
             </form>
         </div>
     );
 }
+
+Login.propTypes = {
+    page: PropTypes.string.isRequired,
+};
 
 export default Login;
