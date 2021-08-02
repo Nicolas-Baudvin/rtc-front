@@ -1,5 +1,6 @@
 import cx from 'classnames';
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 
 function Input({
     label = '',
@@ -8,6 +9,7 @@ function Input({
     onChange = () => {},
     name = '',
     info = '',
+    page = 'signup',
 }) {
     const [isSelected, setSelected] = useState(false);
 
@@ -35,9 +37,19 @@ function Input({
                 value={value}
                 type={type}
             />
-            <small> {info} </small>
+            {page === 'signup' && <small> {info} </small>}
         </div>
     );
 }
+
+Input.propTypes = {
+    label: PropTypes.string,
+    type: PropTypes.string,
+    value: PropTypes.string,
+    onChange: PropTypes.func,
+    name: PropTypes.string,
+    info: PropTypes.string,
+    page: PropTypes.string,
+};
 
 export default Input;
