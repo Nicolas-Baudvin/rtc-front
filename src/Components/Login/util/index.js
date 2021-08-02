@@ -1,3 +1,5 @@
+import checkFields from './checkFields';
+
 export const inputs = (page) =>
     page === 'login'
         ? [
@@ -56,3 +58,5 @@ export const dispatchByInputName = (inputName, dispatch, event) =>
         confPass: () =>
             dispatch(makeAction('NEW_CONF_PASS', event.target.value)),
     }[inputName]);
+
+export { checkFields };
