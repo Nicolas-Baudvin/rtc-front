@@ -30,6 +30,7 @@ function Login({ page = 'signup' }) {
                         value={state[input.name]}
                         onChange={onChange(input.name)}
                         info={input.info}
+                        page={page}
                     />
                 ))}
 
