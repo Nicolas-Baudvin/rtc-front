@@ -2,15 +2,30 @@ import './style.scss';
 import Input from './Input';
 import { useReducer } from 'react';
 import { initialState, reducer } from './reducer';
-import { dispatchByInputName, inputs } from './util';
+import { checkFields, dispatchByInputName, inputs } from './util';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { fetchUserData } from '../../Store/UserData/actions';
 
 function Login({ page = 'signup' }) {
-    const [state, dispatch] = useReducer(reducer, initialState);
+    const [state, localDispatch] = useReducer(reducer, initialState);
+    const dispatch = useDispatch();
 
     const onChange = (inputName) => (event) => {
-        dispatchByInputName(inputName, dispatch, event)();
+        dispatchByInputName(inputName, localDispatch, event)();
+    };
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        const errors = checkFields(state);
+        for (let error in errors) {
+            if (errors[error]) {
+                // TODO: dispatch errors;
+                return;
+            }
+        }
+        return dispatch(fetchUserData({ ...state, page }));
     };
 
     return (
@@ -20,7 +35,7 @@ function Login({ page = 'signup' }) {
             </header>
             <h2>Inscription</h2>
 
-            <form className={'form'} action="">
+            <form onSubmit={onSubmit} className={'form'} action="">
                 {inputs(page).map((input, i) => (
                     <Input
                         key={i}
