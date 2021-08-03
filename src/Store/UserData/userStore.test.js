@@ -53,7 +53,7 @@ describe('User Redux Store', () => {
             },
         ];
 
-        axios.post.mockImplementationOnce(() =>
+        axios.mockImplementationOnce(() =>
             Promise.reject(new Error('Une erreur est survenue'))
         );
 
@@ -72,7 +72,7 @@ describe('User Redux Store', () => {
             },
         ];
 
-        axios.post.mockImplementationOnce(() =>
+        axios.mockImplementationOnce(() =>
             Promise.resolve({ message: 'Votre compte a bien été créer' })
         );
 
