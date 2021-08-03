@@ -19,7 +19,13 @@ export const newUserDataError = (payload) => ({
 });
 
 function getUserData(api, payload) {
-    return axios.post(`${api}api/user/auth/`, { ...payload });
+    return axios({
+        url: 'http://localhost:5000/api/user/',
+        method: 'post',
+        data: {
+            ...payload,
+        },
+    });
 }
 
 export function fetchUserData(payload) {
