@@ -8,6 +8,7 @@ import {
 } from 'react-router-dom';
 import Home from '../Home';
 import { useSelector } from 'react-redux';
+import Message from '../Message';
 
 function App() {
     const { token } = useSelector((state) => state.user);
@@ -34,6 +35,7 @@ function App() {
                     </Route>
                 </Switch>
             </Router>
+            <Message />
         </div>
     );
 }
