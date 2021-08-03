@@ -11,6 +11,7 @@ describe('Message Redux Store', () => {
         const expectedState = {
             message: 'Nouveau message de succès',
             isError: false,
+            isShow: true,
         };
         expect(
             reducer(undefined, newMessage('Nouveau message de succès'))
@@ -21,6 +22,7 @@ describe('Message Redux Store', () => {
         const expectedState = {
             message: "Nouveau message d'erreur",
             isError: true,
+            isShow: true,
         };
         expect(
             reducer(undefined, newErrorMessage("Nouveau message d'erreur"))

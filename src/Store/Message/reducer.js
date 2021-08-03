@@ -3,6 +3,7 @@ import { CLEAR_MESSAGE, NEW_ERROR_MESSAGE, NEW_MESSAGE } from './actions';
 export const initialState = {
     message: '',
     isError: false,
+    isShow: false,
 };
 
 function reducer(state = initialState, action) {
@@ -11,6 +12,7 @@ function reducer(state = initialState, action) {
             return {
                 ...state,
                 ...action.payload,
+                isShow: true,
             };
         }
         case NEW_ERROR_MESSAGE: {
@@ -18,6 +20,7 @@ function reducer(state = initialState, action) {
                 ...state,
                 ...action.payload,
                 isError: true,
+                isShow: true,
             };
         }
         case CLEAR_MESSAGE: {
