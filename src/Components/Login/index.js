@@ -19,12 +19,13 @@ function Login({ page = 'signup' }) {
     const onSubmit = (e) => {
         e.preventDefault();
         const errors = checkFields(state);
-        for (let error in errors) {
-            if (errors[error]) {
-                // TODO: dispatch errors;
-                return;
-            }
+        if (Object.keys(errors).length) {
+            return localDispatch({
+                type: 'NEW_ERRORS',
+                payload: { ...errors },
+            });
         }
+
         return dispatch(fetchUserData({ ...state, page }));
     };
 
@@ -46,6 +47,7 @@ function Login({ page = 'signup' }) {
                         onChange={onChange(input.name)}
                         info={input.info}
                         page={page}
+                        errors={state.errors}
                     />
                 ))}
 

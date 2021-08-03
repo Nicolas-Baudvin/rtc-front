@@ -5,7 +5,7 @@ function isEmailValid(email) {
 }
 
 function isUsernameValid(username) {
-    return username.length >= 8 && username.length <= 20;
+    return username.length >= 3 && username.length <= 20;
 }
 
 function isPasswordValid(password) {
@@ -17,7 +17,7 @@ function arePasswordsEqual({ password, confPass }) {
 }
 
 function checkFields(fields) {
-    const errors = { email: '', password: '', username: '', confPass: '' };
+    const errors = {};
     if (!isEmailValid(fields.email)) {
         errors.email = "L'email est invalide !";
     }

@@ -10,11 +10,14 @@ function Input({
     name = '',
     info = '',
     page = 'signup',
+    errors = {},
 }) {
     const [isSelected, setSelected] = useState(false);
 
     const handleBlur = () => {
-        setSelected(false);
+        if (!value) {
+            setSelected(false);
+        }
     };
 
     const handleFocus = () => {
@@ -37,7 +40,15 @@ function Input({
                 value={value}
                 type={type}
             />
-            {page === 'signup' && <small> {info} </small>}
+            {page === 'signup' && (
+                <small
+                    className={cx('input-info', {
+                        'input-info-errors': Boolean(errors[name]),
+                    })}
+                >
+                    {errors[name] || info}
+                </small>
+            )}
         </div>
     );
 }
@@ -50,6 +61,12 @@ Input.propTypes = {
     name: PropTypes.string,
     info: PropTypes.string,
     page: PropTypes.string,
+    errors: PropTypes.shape({
+        email: PropTypes.string,
+        username: PropTypes.string,
+        password: PropTypes.string,
+        confPass: PropTypes.string,
+    }),
 };
 
 export default Input;

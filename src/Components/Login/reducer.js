@@ -3,6 +3,7 @@ export const initialState = {
     password: '',
     username: '',
     confPass: '',
+    errors: {},
 };
 
 export function reducer(state, action) {
@@ -29,6 +30,14 @@ export function reducer(state, action) {
             return {
                 ...state,
                 confPass: action.payload,
+            };
+        }
+        case 'NEW_ERRORS': {
+            return {
+                ...state,
+                errors: {
+                    ...action.payload,
+                },
             };
         }
         default: {

@@ -49,7 +49,7 @@ describe('checkFields', () => {
     });
 
     it('should return an error on username: username not valid', () => {
-        const newFields = { ...fields, username: 'test' };
+        const newFields = { ...fields, username: 't' };
         const errors = checkFields(newFields);
         expect(errors.email).toBeFalsy();
         expect(errors.username).toBeTruthy();
