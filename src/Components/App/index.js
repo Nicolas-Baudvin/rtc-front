@@ -16,15 +16,21 @@ function App() {
             <Router>
                 <Switch>
                     <Route exact path={'/'}>
-                        token ? <Redirect to={'/dashboard'} /> : <Home />
+                        {token ? <Redirect to={'/dashboard'} /> : <Home />}
                     </Route>
                     <Route exact path={'/connexion'}>
-                        token ? <Redirect to={'/dashboard'} /> :{' '}
-                        <Login page={'login'} />
+                        {token ? (
+                            <Redirect to={'/dashboard'} />
+                        ) : (
+                            <Login page={'login'} />
+                        )}
                     </Route>
                     <Route exact path={'/inscription'}>
-                        token ? <Redirect to={'/dashboard'} /> :{' '}
-                        <Login page={'signup'} />
+                        {token ? (
+                            <Redirect to={'/dashboard'} />
+                        ) : (
+                            <Login page={'signup'} />
+                        )}
                     </Route>
                 </Switch>
             </Router>
