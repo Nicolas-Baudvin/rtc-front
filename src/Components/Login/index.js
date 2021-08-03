@@ -19,7 +19,8 @@ function Login({ page = 'signup' }) {
     const onSubmit = (e) => {
         e.preventDefault();
         const errors = checkFields(state);
-        if (Object.keys(errors).length) {
+
+        if (page === 'submit' && Object.keys(errors).length) {
             return localDispatch({
                 type: 'NEW_ERRORS',
                 payload: { ...errors },
