@@ -1,5 +1,6 @@
 import {
     FETCHING_NEW_USER_DATA,
+    LOGOUT,
     NEW_USER_DATA,
     NEW_USER_DATA_ERROR,
 } from './actions';
@@ -10,18 +11,12 @@ export const initialState = {
     username: '',
     picture: '',
     _id: '',
+    socketID: '',
 };
 
 function reducer(state = initialState, action) {
     switch (action.type) {
         case NEW_USER_DATA: {
-            return {
-                ...state,
-                ...action.payload,
-                isLoading: false,
-            };
-        }
-        case NEW_USER_DATA_ERROR: {
             return {
                 ...state,
                 ...action.payload,
@@ -34,6 +29,9 @@ function reducer(state = initialState, action) {
                 isLoading: true,
             };
         }
+        case LOGOUT:
+            localStorage.clear();
+            return initialState;
         default:
             return state;
     }
