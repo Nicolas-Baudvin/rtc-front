@@ -2,6 +2,11 @@ import axios from 'axios';
 
 export const NEW_USER_DATA = 'NEW_USER_DATA';
 export const NEW_USER_DATA_ERROR = 'NEW_USER_DATA_ERROR';
+export const FETCHING_NEW_USER_DATA = 'FETCHING_NEW_USER_DATA';
+
+export const fetchingNewUserData = () => ({
+    type: FETCHING_NEW_USER_DATA,
+});
 
 export const newUserData = (payload) => ({
     type: NEW_USER_DATA,
@@ -14,14 +19,12 @@ export const newUserDataError = (payload) => ({
 });
 
 function getUserData(api, payload) {
-    return axios.post(`${api}/user/auth/`, { payload });
+    return axios.post(`${api}api/user/auth/`, { ...payload });
 }
 
 export function fetchUserData(payload) {
     return function (dispatch, getState, { api }) {
-        if (getState.user.token) {
-            return Promise.resolve();
-        }
+        dispatch(fetchingNewUserData());
 
         return getUserData(api, payload)
             .then((user) => dispatch(newUserData(user)))
@@ -29,7 +32,6 @@ export function fetchUserData(payload) {
                 dispatch(
                     newUserDataError({
                         message: 'Une erreur est survenue',
-                        err,
                     })
                 )
             );
