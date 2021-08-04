@@ -1,15 +1,18 @@
 import './style.scss';
+import cx from 'classnames';
 import Input from './Input';
 import { useReducer } from 'react';
 import { initialState, reducer } from './reducer';
 import { checkFields, dispatchByInputName, inputs } from './util';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { fetchUserData } from '../../Store/UserData/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { createUser, fetchUserData } from '../../Store/UserData/actions';
+import { AiOutlineLoading3Quarters } from 'react-icons/all';
 
 function Login({ page = 'signup' }) {
     const [state, localDispatch] = useReducer(reducer, initialState);
+    const { isLoading } = useSelector((state) => state.user);
     const dispatch = useDispatch();
 
     const onChange = (inputName) => (event) => {
@@ -27,7 +30,9 @@ function Login({ page = 'signup' }) {
             });
         }
 
-        return dispatch(fetchUserData({ ...state, page }));
+        return page === 'signup'
+            ? dispatch(createUser(state))
+            : dispatch(fetchUserData({ ...state, page }));
     };
 
     return (
@@ -61,7 +66,35 @@ function Login({ page = 'signup' }) {
                 {page === 'login' && (
                     <Link to="/inscription">Tu n'as pas de compte ?</Link>
                 )}
-                <button type="submit">S'inscrire</button>
+
+                {page === 'signup' && (
+                    <button
+                        className={cx('page-button', {
+                            'page-loading': isLoading,
+                        })}
+                        type="submit"
+                    >
+                        {isLoading ? (
+                            <AiOutlineLoading3Quarters />
+                        ) : (
+                            "S'inscrire"
+                        )}
+                    </button>
+                )}
+                {page === 'login' && (
+                    <button
+                        className={cx('page-button', {
+                            'page-loading': isLoading,
+                        })}
+                        type="submit"
+                    >
+                        {isLoading ? (
+                            <AiOutlineLoading3Quarters />
+                        ) : (
+                            'Connexion'
+                        )}
+                    </button>
+                )}
             </form>
         </div>
     );
