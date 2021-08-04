@@ -4,8 +4,8 @@
 
 ### Visiteur
 
-1. En tant que visiteur, je peux créer un compte afin de me connecter.
-2. En tant que visiteur, je peux me connecter afin d'accéder au chat.
+1. En tant que visiteur, je peux créer un compte afin de me connecter. ✔
+2. En tant que visiteur, je peux me connecter afin d'accéder au chat. ✔
 
 ### Utilisateur
 
@@ -36,6 +36,25 @@
 
 ## II. Technologies
 
-Front-end => Next.js / Sass.
-Socket => Socket.io / Node.js.
-Back-end(auth) => JavaEE REST API.
+Front-end => React.js / Sass.
+Back-end => Socket.io / Node.js.
+
+## III. Todo List
+
+
+|Todo|In progress|Done
+| ------|-----|-----|
+|Création de compte|✔|✔|
+|Connexion à son compte|✔|✔|
+|Message de succès lors de la création de compte|✔|✔|
+|Message d'erreur lors de l'inscription (ex: erreur sur un champs)|✔|✔|
+|Message d'erreur qui s'affiche sur une petite popup pour la connexion / inscription|✔|✔|
+|Dashboard|||
+|Page 404|✔||
+|Création d'un salon|||
+|Rejoindre un salon|||
+|Envoie de message|||
+|Page mon compte|||
+|Page d'accueil|✔|
+
+
