@@ -2,16 +2,25 @@ import {
     FETCHING_NEW_USER_DATA,
     LOGOUT,
     NEW_USER_DATA,
-    NEW_USER_DATA_ERROR,
+    STOP_LOADING,
 } from './actions';
 
+function getUserDataFromLocalstorage() {
+    const data = localStorage.getItem('user_datas');
+    if (!data) {
+        return '';
+    }
+    return JSON.parse(data);
+}
+
 export const initialState = {
-    email: '',
-    token: '',
+    email: getUserDataFromLocalstorage()?.email,
+    token: getUserDataFromLocalstorage()?.token,
     username: '',
     picture: '',
-    _id: '',
+    _id: getUserDataFromLocalstorage()?._id,
     socketID: '',
+    isLoading: false,
 };
 
 function reducer(state = initialState, action) {
@@ -27,6 +36,12 @@ function reducer(state = initialState, action) {
             return {
                 ...state,
                 isLoading: true,
+            };
+        }
+        case STOP_LOADING: {
+            return {
+                ...state,
+                isLoading: false,
             };
         }
         case LOGOUT:
