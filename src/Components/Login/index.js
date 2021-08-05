@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { createUser, fetchUserData } from '../../Store/UserData/actions';
-import { AiOutlineLoading3Quarters } from 'react-icons/all';
+import { VscLoading } from 'react-icons/vsc';
 
 function Login({ page = 'signup' }) {
     const [state, localDispatch] = useReducer(reducer, initialState);
@@ -74,11 +74,7 @@ function Login({ page = 'signup' }) {
                         })}
                         type="submit"
                     >
-                        {isLoading ? (
-                            <AiOutlineLoading3Quarters />
-                        ) : (
-                            "S'inscrire"
-                        )}
+                        {isLoading ? <VscLoading /> : "S'inscrire"}
                     </button>
                 )}
                 {page === 'login' && (
@@ -88,11 +84,7 @@ function Login({ page = 'signup' }) {
                         })}
                         type="submit"
                     >
-                        {isLoading ? (
-                            <AiOutlineLoading3Quarters />
-                        ) : (
-                            'Connexion'
-                        )}
+                        {isLoading ? <VscLoading /> : 'Connexion'}
                     </button>
                 )}
             </form>
