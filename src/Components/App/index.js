@@ -9,6 +9,7 @@ import {
 import Home from '../Home';
 import { useSelector } from 'react-redux';
 import Message from '../Message';
+import Dashboard from '../Dashboard';
 
 function App() {
     const { token } = useSelector((state) => state.user);
@@ -32,6 +33,9 @@ function App() {
                         ) : (
                             <Login page={'signup'} />
                         )}
+                    </Route>
+                    <Route exact path={'/dashboard'}>
+                        <Dashboard />
                     </Route>
                 </Switch>
             </Router>
