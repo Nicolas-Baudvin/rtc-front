@@ -5,6 +5,7 @@ import {
     fetchUserData,
     logout,
     NEW_USER_DATA,
+    STOP_LOADING,
 } from './actions';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
@@ -50,6 +51,7 @@ describe('User Redux Store', () => {
         const store = mockStore({});
         const expectedActions = [
             { type: FETCHING_NEW_USER_DATA },
+            { type: STOP_LOADING },
             {
                 type: NEW_ERROR_MESSAGE,
                 payload: {
@@ -100,6 +102,7 @@ describe('User Redux Store', () => {
         const store = mockStore({});
         const expectedActions = [
             { type: FETCHING_NEW_USER_DATA },
+            { type: STOP_LOADING },
             {
                 type: NEW_ERROR_MESSAGE,
                 payload: {
@@ -125,6 +128,7 @@ describe('User Redux Store', () => {
         const store = mockStore({});
         const expectedActions = [
             { type: FETCHING_NEW_USER_DATA },
+            { type: STOP_LOADING },
             {
                 type: NEW_MESSAGE,
                 payload: {
