@@ -2,7 +2,15 @@ import { mount, shallow } from 'enzyme';
 import Input from './index';
 
 describe('<Input />', () => {
-    const wrapper = mount(<Input />);
+    const wrapper = mount(
+        <Input
+            page={'signup'}
+            value={''}
+            errors={{}}
+            input={{ info: '', type: 'text', name: '', label: 'label' }}
+            onChange={() => {}}
+        />
+    );
     it('should render', () => {
         expect(wrapper).toBeTruthy();
     });

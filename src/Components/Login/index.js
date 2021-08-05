@@ -1,14 +1,13 @@
 import './style.scss';
-import cx from 'classnames';
-import Input from './Input';
 import { useReducer } from 'react';
 import { initialState, reducer } from './reducer';
 import { checkFields, dispatchByInputName, inputs } from './util';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { createUser, fetchUserData } from '../../Store/UserData/actions';
-import { VscLoading } from 'react-icons/vsc';
+import Input from './Input';
+import Links from './Links';
+import Button from './Button';
 
 function Login({ page = 'signup' }) {
     const [state, localDispatch] = useReducer(reducer, initialState);
@@ -46,47 +45,15 @@ function Login({ page = 'signup' }) {
                 {inputs(page).map((input, i) => (
                     <Input
                         key={i}
-                        label={input.label}
-                        name={input.name}
-                        type={input.type}
                         value={state[input.name]}
                         onChange={onChange(input.name)}
-                        info={input.info}
+                        input={input}
                         page={page}
                         errors={state.errors}
                     />
                 ))}
-
-                {page === 'signup' && (
-                    <Link to={'/connexion'}>Tu as déjà un compte ?</Link>
-                )}
-                {page === 'login' && (
-                    <Link to="/oublie-mot-de-passe">Mot de passe oublié ?</Link>
-                )}
-                {page === 'login' && (
-                    <Link to="/inscription">Tu n'as pas de compte ?</Link>
-                )}
-
-                {page === 'signup' && (
-                    <button
-                        className={cx('page-button', {
-                            'page-loading': isLoading,
-                        })}
-                        type="submit"
-                    >
-                        {isLoading ? <VscLoading /> : "S'inscrire"}
-                    </button>
-                )}
-                {page === 'login' && (
-                    <button
-                        className={cx('page-button', {
-                            'page-loading': isLoading,
-                        })}
-                        type="submit"
-                    >
-                        {isLoading ? <VscLoading /> : 'Connexion'}
-                    </button>
-                )}
+                <Links page={page} />
+                <Button page={page} isLoading={isLoading} />
             </form>
         </div>
     );
