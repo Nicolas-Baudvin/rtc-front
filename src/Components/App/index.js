@@ -1,4 +1,5 @@
 import './style.scss';
+import cx from 'classnames';
 import Login from '../Login';
 import {
     BrowserRouter as Router,
@@ -15,7 +16,7 @@ import NotFound from '../NotFound';
 function App() {
     const { token } = useSelector((state) => state.user);
     return (
-        <div className="App">
+        <div className={cx('App', { bg: !Boolean(token) })}>
             <Router>
                 <Switch>
                     <Route exact path={'/'}>
