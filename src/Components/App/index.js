@@ -37,7 +37,7 @@ function App() {
                         )}
                     </Route>
                     <Route exact path={'/dashboard'}>
-                        <Dashboard />
+                        {token ? <Dashboard /> : <Redirect to={'/connexion'} />}
                     </Route>
                     <Route exact path={'*'}>
                         <NotFound />
