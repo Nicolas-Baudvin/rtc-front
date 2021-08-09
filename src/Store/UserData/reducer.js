@@ -1,8 +1,10 @@
 import {
+    CHECK_TOKEN,
     FETCHING_NEW_USER_DATA,
     LOGOUT,
     NEW_USER_DATA,
     STOP_LOADING,
+    TOKEN_VERIFIED,
 } from './actions';
 
 function getUserDataFromLocalstorage() {
@@ -21,6 +23,7 @@ export const initialState = {
     _id: getUserDataFromLocalstorage()?._id,
     socketID: '',
     isLoading: false,
+    isTokenBeingVerified: false,
 };
 
 function reducer(state = initialState, action) {
@@ -47,6 +50,18 @@ function reducer(state = initialState, action) {
         case LOGOUT:
             localStorage.clear();
             return initialState;
+        case CHECK_TOKEN: {
+            return {
+                ...state,
+                isTokenBeingVerified: true,
+            };
+        }
+        case TOKEN_VERIFIED: {
+            return {
+                ...state,
+                isTokenBeingVerified: false,
+            };
+        }
         default:
             return state;
     }

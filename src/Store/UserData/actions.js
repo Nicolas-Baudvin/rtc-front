@@ -1,10 +1,28 @@
 import axios from 'axios';
 import { newErrorMessage, newMessage } from '../Message/actions';
 
+/**
+ * Actions types
+ */
+
 export const NEW_USER_DATA = 'NEW_USER_DATA';
 export const FETCHING_NEW_USER_DATA = 'FETCHING_NEW_USER_DATA';
 export const LOGOUT = 'LOGOUT';
 export const STOP_LOADING = 'STOP_LOADING';
+export const CHECK_TOKEN = 'CHECK_TOKEN';
+export const TOKEN_VERIFIED = 'TOKEN_VERIFIED';
+
+/**
+ * Simple redux actions
+ */
+
+export const tokenVerified = () => ({
+    type: TOKEN_VERIFIED,
+});
+
+export const checkingToken = () => ({
+    type: CHECK_TOKEN,
+});
 
 export const stopLoading = () => ({
     type: STOP_LOADING,
@@ -23,6 +41,10 @@ export const logout = () => ({
     type: LOGOUT,
 });
 
+/**
+ * Error handler for api query
+ */
+
 function handleError(error, dispatch) {
     if (error?.response?.status === 403) {
         dispatch(logout());
@@ -36,6 +58,10 @@ function handleError(error, dispatch) {
         return 'Une erreur est survenue avec le serveur.';
     }
 }
+
+/**
+ * API Query
+ */
 
 function getUserData(payload) {
     return axios({
@@ -56,6 +82,20 @@ function setUserData(payload) {
         },
     });
 }
+
+function fetchTokenAuthorization({ token }) {
+    return axios({
+        url: 'http://localhost:5000/api/user/check/',
+        method: 'post',
+        headers: {
+            authorization: token,
+        },
+    });
+}
+
+/**
+ * Async Actions
+ */
 
 export function createUser(payload) {
     return function (dispatch) {
@@ -90,6 +130,23 @@ export function fetchUserData(payload) {
             .catch((error) => {
                 dispatch(stopLoading());
                 dispatch(newErrorMessage(handleError(error, dispatch)));
+            });
+    };
+}
+
+export function checkToken(payload) {
+    return function (dispatch) {
+        dispatch(checkingToken());
+        return fetchTokenAuthorization(payload)
+            .then((isAuthorized) => {
+                if (!isAuthorized) {
+                    return dispatch(logout());
+                }
+                return dispatch(tokenVerified());
+            })
+            .catch((err) => {
+                console.error(err);
+                return dispatch(logout());
             });
     };
 }

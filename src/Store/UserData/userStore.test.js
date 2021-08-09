@@ -1,11 +1,15 @@
 import reducer, { initialState } from './reducer';
 import {
+    CHECK_TOKEN,
+    checkToken,
     createUser,
     FETCHING_NEW_USER_DATA,
     fetchUserData,
+    LOGOUT,
     logout,
     NEW_USER_DATA,
     STOP_LOADING,
+    TOKEN_VERIFIED,
 } from './actions';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
@@ -22,6 +26,7 @@ const expectedState = {
     picture: '',
     _id: 'mongoID',
     socketID: '',
+    isTokenBeingVerified: false,
 };
 
 const formData = {
@@ -144,6 +149,31 @@ describe('User Redux Store', () => {
         );
 
         return store.dispatch(createUser(formData)).then(() => {
+            expect(store.getActions()).toEqual(expectedActions);
+        });
+    });
+
+    it('should fetch the token authorization', () => {
+        const store = mockStore({});
+        const expectedActions = [
+            { type: CHECK_TOKEN },
+            { type: TOKEN_VERIFIED },
+        ];
+
+        axios.mockImplementationOnce(() => Promise.resolve(true));
+
+        return store.dispatch(checkToken('jwttoken')).then(() => {
+            expect(store.getActions()).toEqual(expectedActions);
+        });
+    });
+
+    it('should disconnect the user after failed token checking', () => {
+        const store = mockStore({});
+        const expectedActions = [{ type: CHECK_TOKEN }, { type: LOGOUT }];
+
+        axios.mockImplementationOnce(() => Promise.resolve(false));
+
+        return store.dispatch(checkToken('jwttoken')).then(() => {
             expect(store.getActions()).toEqual(expectedActions);
         });
     });
