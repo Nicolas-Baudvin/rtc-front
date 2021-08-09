@@ -46,8 +46,9 @@ const menuItems = [
 function Menu() {
     return (
         <div className={'dashboard-menu'}>
-            {menuItems.map((menuItem) => (
+            {menuItems.map((menuItem, i) => (
                 <MenuItem
+                    key={i}
                     Icon={menuItem.Icon}
                     title={menuItem.title}
                     isSelected={menuItem.isSelected}

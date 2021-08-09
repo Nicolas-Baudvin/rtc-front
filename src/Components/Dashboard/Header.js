@@ -1,7 +1,24 @@
 import { AiOutlineMenu, AiOutlineUser } from 'react-icons/ai';
 import { ImExit } from 'react-icons/im';
+import PropTypes from 'prop-types';
+import { logout } from '../../Store/UserData/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
-function Header() {
+function Header({ page }) {
+    const history = useHistory();
+    const dispatch = useDispatch();
+    const { token } = useSelector((state) => state.user);
+
+    const onClickLogout = () => dispatch(logout());
+
+    useEffect(() => {
+        if (!token) {
+            history.push('/connexion');
+        }
+    }, []);
+
     return (
         <header className={'dashboard-header'}>
             <div className={'dashboard-header-block'}>
@@ -12,12 +29,14 @@ function Header() {
                     </div>
                 </div>
                 <div className={'dashboard-header-buttons'}>
-                    <button>
+                    <button onClick={onClickLogout}>
                         <ImExit />
                     </button>
-                    <button>
-                        <AiOutlineMenu />
-                    </button>
+                    {page !== 'dashboard' && (
+                        <button>
+                            <AiOutlineMenu />
+                        </button>
+                    )}
                 </div>
             </div>
             <div className={'dashboard-header-block'}>
@@ -26,5 +45,9 @@ function Header() {
         </header>
     );
 }
+
+Header.propTypes = {
+    page: PropTypes.string.isRequired,
+};
 
 export default Header;
