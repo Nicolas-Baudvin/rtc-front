@@ -15,6 +15,8 @@ function Header({ page }) {
 
     const onClickMyProfil = () => history.push('/mon-compte');
 
+    const onClickMyDashboard = () => history.push('/dashboard');
+
     useEffect(() => {
         if (!token) {
             history.push('/connexion');
@@ -38,14 +40,14 @@ function Header({ page }) {
                         <ImExit />
                     </button>
                     {page !== 'dashboard' && (
-                        <button>
+                        <button onClick={onClickMyDashboard}>
                             <AiOutlineMenu />
                         </button>
                     )}
                 </div>
             </div>
             <div className={'dashboard-header-block'}>
-                <h1>Dashboard</h1>
+                <h1>{page}</h1>
             </div>
         </header>
     );
