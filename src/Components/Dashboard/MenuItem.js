@@ -1,11 +1,20 @@
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../Store/UserData/actions';
 
-function MenuItem({ Icon, title, isSelected, path }) {
+function MenuItem({ Icon, title, path }) {
+    const dispatch = useDispatch();
     const history = useHistory();
 
-    const onClick = () => history.push(path);
+    const onClick = () => {
+        if (path === 'disconnect') {
+            dispatch(logout());
+            return history.push('/');
+        }
+        return history.push(path);
+    };
 
     return (
         <div onClick={onClick} className={'dashboard-menu__item'}>
@@ -13,12 +22,7 @@ function MenuItem({ Icon, title, isSelected, path }) {
                 <Icon />
                 {title}
             </h2>
-            <div
-                className={cx('dashboard-menu__item-color', {
-                    grey: !isSelected,
-                    blue: isSelected,
-                })}
-            />
+            <div className={'dashboard-menu__item-color'} />
         </div>
     );
 }
@@ -26,7 +30,6 @@ function MenuItem({ Icon, title, isSelected, path }) {
 MenuItem.propTypes = {
     Icon: PropTypes.func.isRequired,
     title: PropTypes.string.isRequired,
-    isSelected: PropTypes.bool.isRequired,
     path: PropTypes.string.isRequired,
 };
 

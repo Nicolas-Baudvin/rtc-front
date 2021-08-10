@@ -107,11 +107,20 @@
       height: 120px;
       box-shadow: 0 2px 4px rgba(0,0,0,.4);
       margin: .5rem .5rem;
-      background: #fff;
+      background: #eee;
       display: flex;
       flex-direction: column;
       align-items: center;
       border-radius: 5px;
+      cursor: pointer;
+      transition: .2s ease-in-out;
+
+      &:hover {
+        background: #fff;
+        .dashboard-menu__item-color {
+          background: #1D97D6;
+        }
+      }
 
       h2 {
         position: absolute;
@@ -126,10 +135,6 @@
           margin: 0.5rem 0;
           color: #1D97D6;
         }
-      }
-
-      .grey {
-        background: #8c8c8c;
       }
 
       .blue {

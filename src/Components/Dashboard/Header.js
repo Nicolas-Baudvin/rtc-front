@@ -13,6 +13,8 @@ function Header({ page }) {
 
     const onClickLogout = () => dispatch(logout());
 
+    const onClickMyProfil = () => history.push('/mon-compte');
+
     useEffect(() => {
         if (!token) {
             history.push('/connexion');
@@ -22,7 +24,10 @@ function Header({ page }) {
     return (
         <header className={'dashboard-header'}>
             <div className={'dashboard-header-block'}>
-                <div className={'dashboard-header-user'}>
+                <div
+                    onClick={onClickMyProfil}
+                    className={'dashboard-header-user'}
+                >
                     <AiOutlineUser />
                     <div className={'dashboard-header-user__username'}>
                         Username
