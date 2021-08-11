@@ -93,6 +93,32 @@ function fetchTokenAuthorization({ token }) {
     });
 }
 
+function patchUserData({ payload, token }) {
+    return axios({
+        url: 'http://localhost:5000/api/user/',
+        method: 'PUT',
+        headers: {
+            authorization: token,
+        },
+        data: {
+            ...payload,
+        },
+    });
+}
+
+function patchUserPassword({ payload, token }) {
+    return axios({
+        url: 'http://localhost:5000/api/user/',
+        method: 'PATCH',
+        headers: {
+            authorization: token,
+        },
+        data: {
+            ...payload,
+        },
+    });
+}
+
 /**
  * Async Actions
  */
@@ -123,6 +149,8 @@ export function fetchUserData(payload) {
                     token: user.data.token,
                     email: user.data.email,
                     _id: user.data._id,
+                    username: user.data.username,
+                    picture: user.data.picture,
                 };
                 localStorage.setItem('user_datas', JSON.stringify(data));
                 dispatch(newUserData(user.data));
@@ -138,8 +166,8 @@ export function checkToken(payload) {
     return function (dispatch) {
         dispatch(checkingToken());
         return fetchTokenAuthorization(payload)
-            .then((isAuthorized) => {
-                if (!isAuthorized) {
+            .then((data) => {
+                if (!data.isAuthorized) {
                     return dispatch(logout());
                 }
                 return dispatch(tokenVerified());
@@ -147,6 +175,47 @@ export function checkToken(payload) {
             .catch((err) => {
                 console.error(err);
                 return dispatch(logout());
+            });
+    };
+}
+
+export function changePassword(payload) {
+    return function (dispatch, getState) {
+        dispatch(fetchingNewUserData());
+        const token = getState().user.token;
+        return patchUserPassword({ payload, token })
+            .then((res) => {
+                return dispatch(newMessage(res.data.message));
+            })
+            .catch((err) => {
+                console.error(err);
+                return dispatch(
+                    newErrorMessage(
+                        err.response?.data?.error ||
+                            'Une erreur est survenue lors de la mise à jour de vos données'
+                    )
+                );
+            });
+    };
+}
+
+export function changeUserDatas(payload) {
+    return function (dispatch, getState) {
+        dispatch(fetchingNewUserData());
+        const token = getState().user.token;
+        return patchUserData({ payload, token })
+            .then((res) => {
+                dispatch(newMessage('Vos données ont été mis à jour'));
+                return dispatch(newUserData(res.data));
+            })
+            .catch((err) => {
+                console.error(err);
+                return dispatch(
+                    newErrorMessage(
+                        err.response?.data?.error ||
+                            'Une erreur est survenue lors de la mise à jour de vos données.'
+                    )
+                );
             });
     };
 }
