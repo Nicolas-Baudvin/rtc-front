@@ -1,7 +1,3 @@
-import { RiChatForwardLine, RiChatNewLine } from 'react-icons/ri';
-import { ImExit } from 'react-icons/im';
-import { FaListUl, FaUserCircle } from 'react-icons/fa';
-import { AiOutlineDollarCircle } from 'react-icons/ai';
 import MenuItem from './MenuItem';
 import { menuItems } from './util';
 
