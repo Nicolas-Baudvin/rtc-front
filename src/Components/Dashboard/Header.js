@@ -9,7 +9,7 @@ import { useHistory } from 'react-router-dom';
 function Header({ page }) {
     const history = useHistory();
     const dispatch = useDispatch();
-    const { token } = useSelector((state) => state.user);
+    const { token, username } = useSelector((state) => state.user);
 
     const onClickLogout = () => dispatch(logout());
 
@@ -32,7 +32,7 @@ function Header({ page }) {
                 >
                     <AiOutlineUser />
                     <div className={'dashboard-header-user__username'}>
-                        Username
+                        {username}
                     </div>
                 </div>
                 <div className={'dashboard-header-buttons'}>
