@@ -39,7 +39,7 @@ function Login({ page = 'signup' }) {
             <header>
                 <h1>Bienvenue</h1>
             </header>
-            <h2>Inscription</h2>
+            <h2>{page === 'signup' ? 'Insciption' : 'Connexion'}</h2>
 
             <form onSubmit={onSubmit} className={'form'} action="">
                 {inputs(page).map((input, i) => (
