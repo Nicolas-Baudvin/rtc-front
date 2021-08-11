@@ -12,6 +12,7 @@ import { useSelector } from 'react-redux';
 import Message from '../Message';
 import Dashboard from '../Dashboard';
 import NotFound from '../NotFound';
+import MyAccount from '../MyAccount';
 
 function App() {
     const { token } = useSelector((state) => state.user);
@@ -38,6 +39,9 @@ function App() {
                     </Route>
                     <Route exact path={'/dashboard'}>
                         {token ? <Dashboard /> : <Redirect to={'/connexion'} />}
+                    </Route>
+                    <Route exact path={'/mon-compte'}>
+                        {token ? <MyAccount /> : <Redirect to={'/connexion'} />}
                     </Route>
                     <Route exact path={'*'}>
                         <NotFound />

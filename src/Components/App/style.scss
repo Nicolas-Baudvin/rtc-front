@@ -6,3 +6,19 @@
 .bg {
   background: url("../App/bg.svg") no-repeat;
 }
+
+.button {
+  border-radius: 50px;
+  border: none;
+  background: #1D97D6;
+  color: #fff;
+  padding: .5rem 1.8rem;
+  transition: .2s ease-in-out;
+  box-shadow: 0 2px 4px rgba(0,0,0,.5);
+  text-transform: uppercase;
+  margin: 1.5rem 0;
+
+  &:hover {
+    background: darken(#1D97D6, 10%);
+  }
+}
