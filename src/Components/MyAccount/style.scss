@@ -1,0 +1,14 @@
+.account {
+  background: url('../Dashboard/bg.svg') no-repeat;
+
+  .pass {
+    margin: 1rem 0;
+  }
+
+  &-infos {
+    margin-top: 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
