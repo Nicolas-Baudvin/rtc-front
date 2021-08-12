@@ -18,10 +18,10 @@ function getUserDataFromLocalstorage() {
 export const initialState = {
     email: getUserDataFromLocalstorage()?.email,
     token: getUserDataFromLocalstorage()?.token,
-    username: '',
-    picture: '',
+    username: getUserDataFromLocalstorage()?.username,
+    picture: getUserDataFromLocalstorage()?.picture,
     _id: getUserDataFromLocalstorage()?._id,
-    socketID: '',
+    socketID: getUserDataFromLocalstorage()?.socketID,
     isLoading: false,
     isTokenBeingVerified: false,
 };
