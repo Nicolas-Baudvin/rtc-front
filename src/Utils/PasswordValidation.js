@@ -11,10 +11,11 @@ class PasswordValidation {
     constructor({ newPass, newPassConf }) {
         this.newPassConf = newPassConf;
         this.newPass = newPass;
+        this.errors = {};
         this.checkBody();
     }
 
-    get errors() {
+    getErrors() {
         return this.errors;
     }
 
