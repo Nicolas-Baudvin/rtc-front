@@ -51,7 +51,7 @@ class Validation {
         if (this.picture.length < 400) {
             this.errors = {
                 ...this.errors,
-                picture: message[2],
+                picture: messages[2],
             };
         }
     }
