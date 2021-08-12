@@ -11,7 +11,10 @@ function Header({ page }) {
     const dispatch = useDispatch();
     const { token, username } = useSelector((state) => state.user);
 
-    const onClickLogout = () => dispatch(logout());
+    const onClickLogout = () => {
+        history.push('/');
+        dispatch(logout());
+    };
 
     const onClickMyProfil = () => history.push('/mon-compte');
 

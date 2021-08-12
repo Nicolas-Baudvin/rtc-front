@@ -1,4 +1,4 @@
-import Header from '../Dashboard/Header';
+import Header from '../Header';
 import './style.scss';
 import { useSelector } from 'react-redux';
 import { useEffect, useReducer } from 'react';
