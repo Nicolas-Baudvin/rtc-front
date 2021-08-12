@@ -151,6 +151,7 @@ export function fetchUserData(payload) {
                     _id: user.data._id,
                     username: user.data.username,
                     picture: user.data.picture,
+                    socketID: user.data.socketID,
                 };
                 localStorage.setItem('user_datas', JSON.stringify(data));
                 dispatch(newUserData(user.data));
