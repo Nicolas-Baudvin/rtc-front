@@ -45,8 +45,26 @@ describe('My Account Component', () => {
     });
 
     it('should call dispatch on user data form submit', () => {
+        const inputs = wrapper.find('form').first().find('input');
+        inputs.forEach((input) => {
+            if (input.props().type === 'email') {
+                input.simulate('change', { target: { value: 'test@test.fr' } });
+            } else {
+                input.simulate('change', { target: { value: 'Test-Test' } });
+            }
+        });
         wrapper.find('form').first().simulate('submit');
         expect(mockDispatch).toHaveBeenCalled();
+    });
+
+    it('should not call dispatch on pass form submit because of errors', () => {
+        const inputs = wrapper.find('form').first().find('input');
+        inputs.forEach((input) => {
+            if (input.props().type === 'email')
+                input.simulate('change', { target: { value: 'test' } });
+        });
+        wrapper.find('form').first().simulate('submit');
+        expect(mockDispatch).toHaveBeenCalledTimes(0);
     });
 
     it('should call dispatch on pass form submit', () => {
