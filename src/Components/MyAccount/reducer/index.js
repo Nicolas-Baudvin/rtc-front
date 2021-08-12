@@ -2,6 +2,9 @@ export const initialState = (data) => ({
     email: data.email,
     username: data.username,
     picture: data.picture,
+    oldPass: '',
+    newPass: '',
+    newPassConf: '',
 });
 
 export function reducer(state, action) {

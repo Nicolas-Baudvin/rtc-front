@@ -1,6 +1,8 @@
 import Input from './Input';
 import { changePassword } from '../../Store/UserData/actions';
 import { useDispatch } from 'react-redux';
+import { PasswordValidation } from '../../Utils';
+import { useState } from 'react';
 
 const inputsDesc = [
     {
@@ -38,16 +40,23 @@ const inputsDesc = [
     },
 ];
 
+const createPassData = (state) => ({
+    oldPass: state.oldPass,
+    newPass: state.newPass,
+    newPassConf: state.newPassConf,
+});
+
 function PasswordForm({ onChange, state }) {
+    const [passErrors, setPassErrors] = useState({});
     const dispatch = useDispatch();
-    const onSubmit = () => {
-        //TODO: Verif
-        const passData = {
-            oldPass: state.oldPass,
-            newPass: state.newPass,
-            newPassConf: state.newPassConf,
-        };
-        dispatch(changePassword(passData));
+    const onSubmit = (e) => {
+        e.preventDefault();
+        setPassErrors({});
+        const errors = new PasswordValidation(state).getErrors();
+        if (Object.keys(errors).length) {
+            return setPassErrors(errors);
+        }
+        return dispatch(changePassword(createPassData(state)));
     };
     return (
         <form onSubmit={onSubmit} className={'account-infos pass'} action="">
@@ -61,6 +70,7 @@ function PasswordForm({ onChange, state }) {
                     }}
                     labelTitle={input.labelTitle}
                     labelProps={input.labelProps}
+                    error={passErrors[input.inputProps.name]}
                 />
             ))}
             <button className={'button'}>Changer de mot de passe</button>

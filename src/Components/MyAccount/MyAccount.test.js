@@ -29,6 +29,7 @@ describe('My Account Component', () => {
         }));
         wrapper = mount(<MyAccount />);
     });
+
     it('should render', () => {
         expect(wrapper).toBeTruthy();
     });
@@ -47,8 +48,30 @@ describe('My Account Component', () => {
         wrapper.find('form').first().simulate('submit');
         expect(mockDispatch).toHaveBeenCalled();
     });
+
     it('should call dispatch on pass form submit', () => {
+        const inputs = wrapper.find('form').last().find('input');
+        inputs.forEach((input) => {
+            input.simulate('change', { target: { value: 'Test-Test' } });
+        });
         wrapper.find('form').last().simulate('submit');
+
         expect(mockDispatch).toHaveBeenCalled();
+    });
+
+    it('should not call dispatch on pass form submit because of errors', () => {
+        wrapper.find('form').last().simulate('submit');
+        expect(mockDispatch).toHaveBeenCalledTimes(0);
+    });
+
+    it('should redirect if browser does not have a token in storage', () => {
+        useSelectorMock.mockImplementation(() => ({
+            token: '',
+            email: 'test@test.test',
+            username: 'TestTest',
+            picture: '',
+        }));
+        wrapper = mount(<MyAccount />);
+        expect(mockHistoryPush).toHaveBeenCalledWith('/');
     });
 });

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import cx from 'classnames';
 import './style.scss';
 
-function Input({ labelProps, inputProps, labelTitle }) {
+function Input({ labelProps, inputProps, labelTitle, error }) {
     const [isSelected, setSelected] = useState(false);
 
     const onBlur = () => {
@@ -33,6 +33,11 @@ function Input({ labelProps, inputProps, labelTitle }) {
                 {labelTitle}{' '}
             </label>
             <input onBlur={onBlur} onFocus={onFocus} {...inputProps} />
+            <small
+                className={cx('input-info', { 'input-error': Boolean(error) })}
+            >
+                {error ? error : inputProps.info}
+            </small>
         </div>
     );
 }
@@ -41,6 +46,7 @@ Input.propTypes = {
     labelProps: PropTypes.object.isRequired,
     inputProps: PropTypes.object.isRequired,
     labelTitle: PropTypes.string.isRequired,
+    error: PropTypes.string,
 };
 
 export default Input;
