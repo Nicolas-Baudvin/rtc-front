@@ -1,8 +1,10 @@
 import Input from './Input';
 import { changePassword } from '../../Store/UserData/actions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { PasswordValidation } from '../../Utils';
 import { useState } from 'react';
+import { VscLoading } from 'react-icons/vsc';
+import cx from 'classnames';
 
 const inputsDesc = [
     {
@@ -48,6 +50,7 @@ const createPassData = (state) => ({
 
 function PasswordForm({ onChange, state }) {
     const [passErrors, setPassErrors] = useState({});
+    const { isLoading } = useSelector((state) => state.user);
     const dispatch = useDispatch();
     const onSubmit = (e) => {
         e.preventDefault();
@@ -73,7 +76,9 @@ function PasswordForm({ onChange, state }) {
                     error={passErrors[input.inputProps.name]}
                 />
             ))}
-            <button className={'button'}>Changer de mot de passe</button>
+            <button className={cx('button', { 'button-loading': isLoading })}>
+                {isLoading ? <VscLoading /> : 'Valider'}
+            </button>
         </form>
     );
 }

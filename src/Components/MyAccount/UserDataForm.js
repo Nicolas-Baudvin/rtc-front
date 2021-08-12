@@ -1,8 +1,10 @@
 import Input from './Input';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { changeUserDatas } from '../../Store/UserData/actions';
 import { Validation } from '../../Utils';
 import { useState } from 'react';
+import cx from 'classnames';
+import { VscLoading } from 'react-icons/vsc';
 
 const inputsDesc = [
     {
@@ -48,6 +50,7 @@ const createUserdataObject = (state) => ({
 
 function UserDataForm({ state, onChange }) {
     const [dataErrors, setDataErrors] = useState({});
+    const { isLoading } = useSelector((state) => state.user);
     const dispatch = useDispatch();
     const onSubmit = () => {
         setDataErrors({});
@@ -72,7 +75,9 @@ function UserDataForm({ state, onChange }) {
                     error={dataErrors[input.inputProps.name]}
                 />
             ))}
-            <button className={'button'}>Valider</button>
+            <button className={cx('button', { 'button-loading': isLoading })}>
+                {isLoading ? <VscLoading /> : 'Valider'}
+            </button>
         </form>
     );
 }
