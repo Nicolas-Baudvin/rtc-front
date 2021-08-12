@@ -1,6 +1,8 @@
 import Input from './Input';
 import { useDispatch } from 'react-redux';
 import { changeUserDatas } from '../../Store/UserData/actions';
+import { Validation } from '../../Utils';
+import { useState } from 'react';
 
 const inputsDesc = [
     {
@@ -38,16 +40,22 @@ const inputsDesc = [
     },
 ];
 
+const createUserdataObject = (state) => ({
+    email: state.email,
+    username: state.username,
+    picture: state.picture,
+});
+
 function UserDataForm({ state, onChange }) {
+    const [dataErrors, setDataErrors] = useState({});
     const dispatch = useDispatch();
     const onSubmit = () => {
-        //TODO: Verif
-        const userData = {
-            email: state.email,
-            username: state.username,
-            picture: state.picture,
-        };
-        dispatch(changeUserDatas(userData));
+        setDataErrors({});
+        const errors = new Validation(state).getErrors();
+        if (Object.keys(errors).length) {
+            return setDataErrors(errors);
+        }
+        return dispatch(changeUserDatas(createUserdataObject(state)));
     };
     return (
         <form onSubmit={onSubmit} className={'account-infos'}>
@@ -61,6 +69,7 @@ function UserDataForm({ state, onChange }) {
                     }}
                     labelTitle={input.labelTitle}
                     labelProps={input.labelProps}
+                    error={dataErrors[input.inputProps.name]}
                 />
             ))}
             <button className={'button'}>Valider</button>
