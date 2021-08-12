@@ -14,10 +14,11 @@ class Validation {
         this.email = email;
         this.picture = picture;
         this.username = username;
+        this.errors = {};
         this.checkBody();
     }
 
-    get errors() {
+    getErrors() {
         return this.errors;
     }
 
@@ -28,7 +29,7 @@ class Validation {
     }
 
     checkUsername() {
-        if (this.username.length >= 3 && this.username.length <= 20) {
+        if (this.username.length <= 3 && this.username.length >= 20) {
             this.errors = {
                 ...this.errors,
                 username: messages[1],
@@ -48,7 +49,7 @@ class Validation {
     }
 
     checkPicture() {
-        if (this.picture.length < 400) {
+        if (this.picture.length >= 400) {
             this.errors = {
                 ...this.errors,
                 picture: messages[2],
