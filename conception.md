@@ -49,12 +49,12 @@ Back-end => Socket.io / Node.js.
 |Message de succès lors de la création de compte|✔|✔|
 |Message d'erreur lors de l'inscription (ex: erreur sur un champs)|✔|✔|
 |Message d'erreur qui s'affiche sur une petite popup pour la connexion / inscription|✔|✔|
-|Dashboard|||
-|Page 404|✔||
+|Page mon compte|✔||
+|Dashboard|✔|✔|
+|Page 404|✔|✔|
 |Création d'un salon|||
 |Rejoindre un salon|||
 |Envoie de message|||
-|Page mon compte|||
-|Page d'accueil|✔|
+|Page d'accueil|✔||
 
 
