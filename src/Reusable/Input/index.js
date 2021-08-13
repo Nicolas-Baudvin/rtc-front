@@ -43,8 +43,16 @@ function Input({ labelProps, inputProps, labelTitle, error }) {
 }
 
 Input.propTypes = {
-    labelProps: PropTypes.object.isRequired,
-    inputProps: PropTypes.object.isRequired,
+    labelProps: PropTypes.shape({
+        htmlFor: PropTypes.string.isRequired,
+    }).isRequired,
+    inputProps: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        info: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+        value: PropTypes.string.isRequired,
+        onChange: PropTypes.func.isRequired,
+    }).isRequired,
     labelTitle: PropTypes.string.isRequired,
     error: PropTypes.string,
 };
