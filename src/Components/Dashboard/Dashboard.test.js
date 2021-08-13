@@ -32,19 +32,6 @@ describe('Dashboard', () => {
         expect(wrapper).toBeTruthy();
     });
 
-    it("should redirect to 'mon compte' page", () => {
-        wrapper.find('.dashboard-header-user').simulate('click');
-        expect(mockHistoryPush).toHaveBeenCalledWith('/mon-compte');
-    });
-
-    it('should call dispatch to logout the user when clicking on disconnect button', () => {
-        wrapper
-            .find('.dashboard-header-buttons')
-            .find('button')
-            .simulate('click');
-        expect(mockDispatch).toHaveBeenCalledWith(logout());
-    });
-
     it('should redirect the user if he is not connected', () => {
         useSelectorMock.mockImplementation(() => ({
             token: '',
