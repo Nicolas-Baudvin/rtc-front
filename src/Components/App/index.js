@@ -13,6 +13,7 @@ import Message from '../Message';
 import Dashboard from '../Dashboard';
 import NotFound from '../NotFound';
 import MyAccount from '../MyAccount';
+import CreateChat from '../CreateChat';
 
 function App() {
     const { token } = useSelector((state) => state.user);
@@ -42,6 +43,13 @@ function App() {
                     </Route>
                     <Route exact path={'/mon-compte'}>
                         {token ? <MyAccount /> : <Redirect to={'/connexion'} />}
+                    </Route>
+                    <Route exact path={'/creer-salon'}>
+                        {token ? (
+                            <CreateChat />
+                        ) : (
+                            <Redirect to={'/connexion'} />
+                        )}
                     </Route>
                     <Route exact path={'*'}>
                         <NotFound />
