@@ -5,6 +5,7 @@ import { logout } from '../../Store/UserData/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import './style.scss';
 
 function Header({ page }) {
     const history = useHistory();
@@ -27,18 +28,13 @@ function Header({ page }) {
     }, []);
 
     return (
-        <header className={'dashboard-header'}>
-            <div className={'dashboard-header-block'}>
-                <div
-                    onClick={onClickMyProfil}
-                    className={'dashboard-header-user'}
-                >
+        <header className={'header'}>
+            <div className={'header-block'}>
+                <div onClick={onClickMyProfil} className={'header-user'}>
                     <AiOutlineUser />
-                    <div className={'dashboard-header-user__username'}>
-                        {username}
-                    </div>
+                    <div className={'header-user__username'}>{username}</div>
                 </div>
-                <div className={'dashboard-header-buttons'}>
+                <div className={'header-buttons'}>
                     <button onClick={onClickLogout}>
                         <ImExit />
                     </button>
@@ -49,7 +45,7 @@ function Header({ page }) {
                     )}
                 </div>
             </div>
-            <div className={'dashboard-header-block'}>
+            <div className={'header-block'}>
                 <h1>{page}</h1>
             </div>
         </header>
