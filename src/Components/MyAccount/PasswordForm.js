@@ -1,4 +1,4 @@
-import Input from './Input';
+import Input from '../../Reusable/Input';
 import { changePassword } from '../../Store/UserData/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { PasswordValidation } from '../../Utils';
