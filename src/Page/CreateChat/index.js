@@ -3,10 +3,13 @@ import './style.scss';
 import Form from './Form';
 
 function CreateChat() {
+    const onSubmit = (e) => {
+        e.preventDefault();
+    };
     return (
         <div className={'create'}>
             <Header page={'Créer un salon'} />
-            <Form />
+            <Form onSubmit={onSubmit} />
         </div>
     );
 }

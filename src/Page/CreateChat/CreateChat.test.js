@@ -36,4 +36,15 @@ describe('CreateChat Component', () => {
         wrapper.find('.button-border').simulate('click');
         expect(mockHistoryPush).toHaveBeenCalledWith('/dashboard');
     });
+
+    it('should write in input', () => {
+        const expectedValue = 'test';
+        wrapper
+            .find('input')
+            .first()
+            .simulate('change', { target: { value: expectedValue } });
+        expect(wrapper.find('input').first().props().value).toEqual(
+            expectedValue
+        );
+    });
 });
