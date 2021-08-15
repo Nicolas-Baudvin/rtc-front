@@ -1,4 +1,4 @@
-import Header from '../Header';
+import Header from '../../Components/Header';
 import './style.scss';
 import Form from './Form';
 

@@ -1,4 +1,4 @@
-import Input from '../../Reusable/Input';
+import Input from '../../Components/Input';
 import { useHistory } from 'react-router-dom';
 import { useReducer } from 'react';
 import { initialState, reducer } from './reducer';

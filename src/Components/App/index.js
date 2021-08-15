@@ -1,19 +1,19 @@
 import './style.scss';
 import cx from 'classnames';
-import Login from '../Login';
+import Login from '../../Page/Login';
 import {
     BrowserRouter as Router,
     Switch,
     Route,
     Redirect,
 } from 'react-router-dom';
-import Home from '../Home';
+import Home from '../../Page/Home';
 import { useSelector } from 'react-redux';
 import Message from '../Message';
-import Dashboard from '../Dashboard';
-import NotFound from '../NotFound';
-import MyAccount from '../MyAccount';
-import CreateChat from '../CreateChat';
+import Dashboard from '../../Page/Dashboard';
+import NotFound from '../../Page/NotFound';
+import MyAccount from '../../Page/MyAccount';
+import CreateChat from '../../Page/CreateChat';
 
 function App() {
     const { token } = useSelector((state) => state.user);

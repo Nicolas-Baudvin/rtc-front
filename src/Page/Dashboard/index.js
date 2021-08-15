@@ -1,6 +1,6 @@
 import './style.scss';
 import Menu from './Menu';
-import Header from '../Header';
+import Header from '../../Components/Header';
 
 function Dashboard() {
     return (

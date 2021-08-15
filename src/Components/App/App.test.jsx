@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme';
 import App from './index';
-import Login from '../Login';
+import Login from '../../Page/Login';
 import { useSelector as useSelectorMock } from 'react-redux';
 
 const mockDispatch = jest.fn();

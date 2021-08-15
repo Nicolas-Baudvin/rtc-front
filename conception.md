@@ -9,10 +9,10 @@
 
 ### Utilisateur
 
-1. En tant qu'utilisateur, je peux accéder au menu de l'application afin de choisir si je veux créer une salon, rejoindre un salon, consulter les salons où je suis déjà présent ou accéder à mes informations personnelles.
+1. En tant qu'utilisateur, je peux accéder au menu de l'application afin de choisir si je veux créer une salon, rejoindre un salon, consulter les salons où je suis déjà présent ou accéder à mes informations personnelles. ✔
 2. En tant qu'utilisateur, je peux créer un salon, afin de pouvoir inviter des amis dans ce dernier.
-3. En tant qu'utilisateur, je peux me déconnecter de l'appli.
-4. En tant qu'utilisateur, je peux modifier mon pseudonyme et mon mot de passe.
+3. En tant qu'utilisateur, je peux me déconnecter de l'appli. ✔
+4. En tant qu'utilisateur, je peux modifier mon pseudonyme et mon mot de passe. ✔
 5. En tant qu'utilisateur, je peux accéder à la page d'oublie de mot de passe, afin de m'envoyer un mail d'oublie de mot de passe.
 6. En tant qu'utilisateur, je peux accéder au menu des salons que j'ai rejoins, afin de choisir celui que je veux rejoindre.
 
@@ -49,6 +49,7 @@ Back-end => Socket.io / Node.js.
 |Message de succès lors de la création de compte|✔|✔|
 |Message d'erreur lors de l'inscription (ex: erreur sur un champs)|✔|✔|
 |Message d'erreur qui s'affiche sur une petite popup pour la connexion / inscription|✔|✔|
+|Amélioration de la validation des champs lors de la création de compte|✔||
 |Page mon compte|✔||
 |Dashboard|✔|✔|
 |Page 404|✔|✔|
