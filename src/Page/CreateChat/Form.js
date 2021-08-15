@@ -51,8 +51,9 @@ function Form({ onSubmit }) {
 
     return (
         <form onSubmit={onSubmit} action="">
-            {inputs.map((input) => (
+            {inputs.map((input, i) => (
                 <Input
+                    key={i}
                     inputProps={{
                         name: input.inputProps.name,
                         info: input.inputProps.info,
