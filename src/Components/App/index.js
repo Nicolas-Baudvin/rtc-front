@@ -14,6 +14,7 @@ import Dashboard from '../../Page/Dashboard';
 import NotFound from '../../Page/NotFound';
 import MyAccount from '../../Page/MyAccount';
 import CreateChat from '../../Page/CreateChat';
+import JoinChat from '../../Page/JoinChat';
 
 function App() {
     const { token } = useSelector((state) => state.user);
@@ -50,6 +51,9 @@ function App() {
                         ) : (
                             <Redirect to={'/connexion'} />
                         )}
+                    </Route>
+                    <Route exact path={'/rejoindre-salon'}>
+                        {token ? <JoinChat /> : <Redirect to={'/connexion'} />}
                     </Route>
                     <Route exact path={'*'}>
                         <NotFound />
