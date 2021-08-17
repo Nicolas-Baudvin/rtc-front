@@ -50,7 +50,7 @@ describe('Dashboard', () => {
         buttons.forEach((button, i) => {
             button.simulate('click');
             if (menuItems[i].path === 'disconnect') {
-                expect(mockHistoryPush).toHaveBeenCalledWith('/');
+                expect(mockHistoryPush).toHaveBeenCalledWith('/connexion');
                 expect(mockDispatch).toHaveBeenCalledWith(logout());
             } else {
                 expect(mockHistoryPush).toHaveBeenCalledWith(menuItems[i].path);
