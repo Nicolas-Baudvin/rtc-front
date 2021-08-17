@@ -13,7 +13,7 @@ function Header({ page }) {
     const { token, username } = useSelector((state) => state.user);
 
     const onClickLogout = () => {
-        history.push('/');
+        history.push('/connexion');
         dispatch(logout());
     };
 
@@ -25,7 +25,7 @@ function Header({ page }) {
         if (!token) {
             history.push('/connexion');
         }
-    }, []);
+    }, [token]);
 
     return (
         <header className={'header'}>
