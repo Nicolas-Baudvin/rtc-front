@@ -1,20 +1,24 @@
 import './style.scss';
 import { useReducer } from 'react';
 import { initialState, reducer } from './reducer';
-import { checkFields, dispatchByInputName, inputs } from './util';
+import {
+    checkFields,
+    dispatchByInputName,
+    loginInputs,
+    signupInputs,
+} from './util';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { createUser, fetchUserData } from '../../Store/UserData/actions';
-import Input from './Input';
 import Links from './Links';
-import Button from './Button';
+import Form from '../../Components/Form';
 
 function Login({ page = 'signup' }) {
     const [state, localDispatch] = useReducer(reducer, initialState);
     const { isLoading } = useSelector((state) => state.user);
     const dispatch = useDispatch();
 
-    const onChange = (inputName) => (event) => {
+    const onChange = (event, inputName) => {
         dispatchByInputName(inputName, localDispatch, event)();
     };
 
@@ -41,20 +45,26 @@ function Login({ page = 'signup' }) {
             </header>
             <h2>{page === 'signup' ? 'Insciption' : 'Connexion'}</h2>
 
-            <form onSubmit={onSubmit} className={'form'} action="">
-                {inputs(page).map((input, i) => (
-                    <Input
-                        key={i}
-                        value={state[input.name]}
-                        onChange={onChange(input.name)}
-                        input={input}
-                        page={page}
-                        errors={state.errors}
-                    />
-                ))}
-                <Links page={page} />
-                <Button page={page} isLoading={isLoading} />
-            </form>
+            {page === 'signup' ? (
+                <Form
+                    inputs={signupInputs}
+                    onChange={onChange}
+                    state={state}
+                    onSubmit={onSubmit}
+                    errors={state.errors}
+                    isLoading={isLoading}
+                />
+            ) : (
+                <Form
+                    inputs={loginInputs}
+                    onChange={onChange}
+                    state={state}
+                    onSubmit={onSubmit}
+                    errors={state.errors}
+                    isLoading={isLoading}
+                />
+            )}
+            <Links page={page} />
         </div>
     );
 }

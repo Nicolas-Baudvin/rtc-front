@@ -33,7 +33,7 @@ describe("<Login page='signup' /> component", () => {
                 <Login page={'signup'} />
             </Router>
         );
-        expect(wrapper.find(Input).length).toEqual(4);
+        expect(wrapper.find('input').length).toEqual(4);
     });
 
     it('should write in 1 input', () => {
@@ -86,6 +86,6 @@ describe("<Login page='login' component />", () => {
     });
 
     it('should contain 2 inputs', () => {
-        expect(wrapper.find(Input).length).toEqual(2);
+        expect(wrapper.find('input').length).toEqual(2);
     });
 });

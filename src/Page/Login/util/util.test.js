@@ -15,14 +15,6 @@ describe('util', () => {
         dispatchByInputName('email', dispatch, event)();
         expect(dispatch).toHaveBeenCalledTimes(1);
     });
-
-    it('should return an array with 2 objects', () => {
-        expect(inputs('login').length).toEqual(2);
-    });
-
-    it('should return an array with 4 objects', () => {
-        expect(inputs('signup').length).toEqual(4);
-    });
 });
 
 describe('checkFields', () => {

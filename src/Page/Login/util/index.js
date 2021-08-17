@@ -1,47 +1,76 @@
 import checkFields from './checkFields';
 
-export const inputs = (page) =>
-    page === 'login'
-        ? [
-              {
-                  label: 'Email',
-                  name: 'email',
-                  type: 'email',
-                  info: "L'email doit être valide.",
-              },
-              {
-                  label: 'Mot de passe',
-                  name: 'password',
-                  type: 'password',
-                  info: 'Le mot de passe doit faire 8 caractères minimum.',
-              },
-          ]
-        : [
-              {
-                  label: 'Email',
-                  name: 'email',
-                  type: 'email',
-                  info: "L'email doit être valide.",
-              },
-              {
-                  label: 'Pseudonyme',
-                  name: 'username',
-                  type: 'text',
-                  info: 'Le pseudonyme doit faire entre 8 et 20 caractères. (lettres ou chiffres + lettres)',
-              },
-              {
-                  label: 'Mot de passe',
-                  name: 'password',
-                  type: 'password',
-                  info: 'Le mot de passe doit faire 8 caractères minimum.',
-              },
-              {
-                  label: 'Confirmation du mot de passe',
-                  name: 'confPass',
-                  type: 'password',
-                  info: 'Les mots de passe doivent être identiques.',
-              },
-          ];
+export const loginInputs = [
+    {
+        inputProps: {
+            name: 'email',
+            type: 'email',
+            info: "L'email doit être valide.",
+        },
+        labelTitle: 'Email',
+        labelProps: {
+            htmlFor: 'email',
+        },
+    },
+    {
+        inputProps: {
+            name: 'password',
+            type: 'password',
+            info: 'Le mot de passe doit faire 8 caractères minimum.',
+        },
+        labelTitle: 'Mot de passe',
+        labelProps: {
+            htmlFor: 'password',
+        },
+    },
+];
+
+export const signupInputs = [
+    {
+        inputProps: {
+            name: 'email',
+            type: 'email',
+            info: "L'email doit être valide.",
+        },
+        labelTitle: 'Email',
+        labelProps: {
+            htmlFor: 'email',
+        },
+    },
+    {
+        inputProps: {
+            name: 'username',
+            type: 'text',
+            info: 'Le pseudonyme doit faire entre 8 et 20 caractères. (lettres ou chiffres + lettres)',
+        },
+        labelTitle: 'Pseudonyme',
+        labelProps: {
+            htmlFor: 'username',
+        },
+    },
+    {
+        inputProps: {
+            name: 'password',
+            type: 'password',
+            info: 'Le mot de passe doit faire 8 caractères minimum.',
+        },
+        labelTitle: 'Mot de passe',
+        labelProps: {
+            htmlFor: 'password',
+        },
+    },
+    {
+        inputProps: {
+            name: 'confPass',
+            type: 'password',
+            info: 'Les mots de passe doivent être identiques.',
+        },
+        labelTitle: 'Confirmez le mot de passe',
+        labelProps: {
+            htmlFor: 'confPass',
+        },
+    },
+];
 
 export const makeAction = (type, payload) => ({
     type,
