@@ -12,7 +12,7 @@ export const menuItems = [
     {
         Icon: () => <ImExit />,
         title: 'Se déconnecter',
-        path: 'disconnect',
+        path: '/connexion',
     },
     {
         Icon: () => <RiChatForwardLine />,

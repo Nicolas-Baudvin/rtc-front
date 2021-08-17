@@ -7,10 +7,9 @@ function MenuItem({ Icon, title, path }) {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const onClick = () => {
-        if (path === 'disconnect') {
+    const onClick = (e) => {
+        if (path === '/connexion') {
             dispatch(logout());
-            return history.push('/');
         }
         return history.push(path);
     };
