@@ -262,6 +262,15 @@ describe('User Redux Store', () => {
     });
 
     it('should clear the state', () => {
-        expect(reducer(undefined, logout())).toEqual(initialState);
+        const expectedState = {
+            ...initialState,
+            email: '',
+            token: '',
+            username: '',
+            picture: '',
+            _id: '',
+            socketID: '',
+        };
+        expect(reducer(undefined, logout())).toEqual(expectedState);
     });
 });

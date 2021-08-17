@@ -49,7 +49,15 @@ function reducer(state = initialState, action) {
         }
         case LOGOUT:
             localStorage.clear();
-            return initialState;
+            return {
+                ...initialState,
+                email: '',
+                token: '',
+                username: '',
+                picture: '',
+                _id: '',
+                socketID: '',
+            };
         case CHECK_TOKEN: {
             return {
                 ...state,
