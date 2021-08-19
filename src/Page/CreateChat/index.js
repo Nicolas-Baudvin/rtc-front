@@ -2,19 +2,8 @@ import Header from '../../Components/Header';
 import './style.scss';
 import Form from '../../Components/Form';
 import { useReducer } from 'react';
-import { initialState, reducer } from './reducer';
+import { dispatchByInputName, initialState, reducer } from './reducer';
 import { useHistory } from 'react-router-dom';
-
-const makeAction = (type, payload) => ({
-    type,
-    payload,
-});
-
-const dispatchByInputName = (inputName, dispatch) =>
-    ({
-        roomName: (e) => dispatch(makeAction('NEW_ROOM_NAME', e.target.value)),
-        roomPass: (e) => dispatch(makeAction('NEW_ROOM_PASS', e.target.value)),
-    }[inputName]);
 
 const inputs = [
     {
