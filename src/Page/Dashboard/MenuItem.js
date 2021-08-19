@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../Store/UserData/actions';
+import { disconnect } from '../../Store/WebSocket/actions';
 
 function MenuItem({ Icon, title, path }) {
     const dispatch = useDispatch();
@@ -10,6 +11,7 @@ function MenuItem({ Icon, title, path }) {
     const onClick = (e) => {
         if (path === '/connexion') {
             dispatch(logout());
+            dispatch(disconnect());
         }
         return history.push(path);
     };
