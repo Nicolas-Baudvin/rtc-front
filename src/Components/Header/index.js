@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import './style.scss';
+import { disconnect } from '../../Store/WebSocket/actions';
 
 function Header({ page }) {
     const history = useHistory();
@@ -15,6 +16,7 @@ function Header({ page }) {
     const onClickLogout = () => {
         history.push('/connexion');
         dispatch(logout());
+        dispatch(disconnect());
     };
 
     const onClickMyProfil = () => history.push('/mon-compte');
