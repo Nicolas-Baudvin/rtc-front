@@ -12,17 +12,21 @@ const variants = {
 
 function Message() {
     const dispatch = useDispatch();
-    const { message, isError } = useSelector((state) => state.popup);
+    const { message, isError, isShow } = useSelector((state) => state.popup);
 
     const onClick = () => dispatch(clearMessage());
 
     return (
         <motion.div
             variants={variants}
-            animate={isError ? 'show' : 'hide'}
-            className={'message'}
+            animate={isShow ? 'show' : 'hide'}
+            className={cx('message', { 'message-error': isError })}
         >
-            <p className={cx('message-text', { 'message-error': isError })}>
+            <p
+                className={cx('message-text', {
+                    'message-text-error': isError,
+                })}
+            >
                 {message.toString()}
             </p>
             <div className={'message-buttons'}>

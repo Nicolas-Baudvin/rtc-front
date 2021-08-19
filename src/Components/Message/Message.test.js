@@ -41,7 +41,9 @@ describe('Message Component', () => {
         const wrapper = shallow(<Message />);
         const message = wrapper.find('.message-text');
         expect(message.text()).toEqual(expectedMessage);
-        expect(message.props().className).toEqual('message-text message-error');
+        expect(message.props().className).toEqual(
+            'message-text message-text-error'
+        );
     });
 
     it('should call dispatch on click on clear button', () => {

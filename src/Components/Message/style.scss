@@ -30,9 +30,19 @@
   }
 
   &-error {
-    color: red;
+    border-color: red;
+    .message-buttons {
+
+      svg {
+        color: red;
+      }
+    }
   }
   &-text {
     color: #1D97D6;
+
+    &-error {
+      color: red;
+    }
   }
 }
