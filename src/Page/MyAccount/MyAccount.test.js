@@ -1,7 +1,6 @@
 import { mount } from 'enzyme';
 import MyAccount from './index';
 import { useSelector as useSelectorMock } from 'react-redux';
-import Dashboard from '../Dashboard';
 
 const mockDispatch = jest.fn();
 jest.mock('react-redux', () => ({
@@ -26,6 +25,7 @@ describe('My Account Component', () => {
             email: 'test@test.test',
             username: 'TestTest',
             picture: '',
+            isLoading: false,
         }));
         wrapper = mount(<MyAccount />);
     });
@@ -88,6 +88,7 @@ describe('My Account Component', () => {
             email: 'test@test.test',
             username: 'TestTest',
             picture: '',
+            isLoading: false,
         }));
         wrapper = mount(<MyAccount />);
         expect(mockHistoryPush).toHaveBeenCalledWith('/');
