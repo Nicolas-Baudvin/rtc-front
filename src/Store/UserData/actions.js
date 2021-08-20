@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { newErrorMessage, newMessage } from '../Message/actions';
+import axiosErrorHandler from '../../Utils/axiosErrorHandler';
 
 /**
  * Actions types
@@ -134,7 +135,7 @@ export function createUser(payload) {
             })
             .catch((error) => {
                 dispatch(stopLoading());
-                dispatch(newErrorMessage(handleError(error, dispatch)));
+                dispatch(newErrorMessage(axiosErrorHandler(error, dispatch)));
             });
     };
 }
@@ -158,7 +159,7 @@ export function fetchUserData(payload) {
             })
             .catch((error) => {
                 dispatch(stopLoading());
-                dispatch(newErrorMessage(handleError(error, dispatch)));
+                dispatch(newErrorMessage(axiosErrorHandler(error, dispatch)));
             });
     };
 }
