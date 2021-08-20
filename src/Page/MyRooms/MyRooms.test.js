@@ -1,7 +1,6 @@
 import { mount } from 'enzyme';
 import MyRooms from '.';
 import { useSelector as useSelectorMock } from 'react-redux';
-import MyAccount from '../MyAccount';
 
 const mockDispatch = jest.fn();
 jest.mock('react-redux', () => ({
