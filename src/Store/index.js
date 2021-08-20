@@ -2,9 +2,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import rootReducer from './rootReducer';
 import thunk from 'redux-thunk';
 
-const middlewares = applyMiddleware(
-    thunk.withExtraArgument({ api: process.env.REACT_APP_API_URL })
-);
+const middlewares = applyMiddleware(thunk);
 
 const withReduxDevTools = compose;
 
