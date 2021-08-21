@@ -1,8 +1,10 @@
 export const initialState = {
     roomName: '',
     roomPass: '',
-    roomNameError: '',
-    roomPassError: '',
+    errors: {
+        roomName: '',
+        roomPass: '',
+    },
 };
 
 export const makeAction = (type, payload) => ({
@@ -28,6 +30,12 @@ export function reducer(state, action) {
             return {
                 ...state,
                 roomPass: action.payload,
+            };
+        }
+        case 'NEW_ERRORS': {
+            return {
+                ...state,
+                errors: action.payload,
             };
         }
         default:
