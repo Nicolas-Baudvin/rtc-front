@@ -1,0 +1,30 @@
+.roomsList {
+  background: url('../Dashboard/bg.svg') no-repeat;
+  &-list {
+    margin-top: 4rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    &__item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #1D97D6;
+      width: 300px;
+      padding: .5rem .7rem;
+      border-radius: 4px;
+      margin: .5rem 0;
+      box-shadow: 0 0 0 2px #1D97D6;
+
+      &:hover {
+      }
+
+      svg {
+        margin: 0 .2rem;
+        font-size: 1.1rem;
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+}
