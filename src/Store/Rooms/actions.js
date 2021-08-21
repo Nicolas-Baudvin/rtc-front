@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { get } from 'enzyme/build/configuration';
-import { newErrorMessage } from '../Message/actions';
+import { newErrorMessage, newMessage } from '../Message/actions';
 import axiosErrorHandler from '../../Utils/axiosErrorHandler';
 
 export const NEW_ROOMS = 'NEW_ROOMS';
@@ -57,7 +57,7 @@ export function getRooms() {
             email: getState().user.email,
             _id: getState().user._id,
             token: getState().user.token,
-            username: getState().user.token,
+            username: getState().user.username,
         };
         return fetchRooms(userData)
             .then((res) => {
@@ -73,6 +73,11 @@ export function getRooms() {
  * Socket
  */
 
+/**
+ *
+ * @param payload - { roomName: string, roomPass: string }
+ * @returns {(function(*, *): void)|*}
+ */
 export function createRoom(payload) {
     return function (dispatch, getState) {
         const { socket } = getState().server;
@@ -80,18 +85,29 @@ export function createRoom(payload) {
             email: getState().user.email,
             _id: getState().user._id,
             token: getState().user.token,
+            username: getState().user.username,
         };
 
         socket.emit('create room', { ...userData, ...payload });
-        socket.on('room created', (data) =>
-            dispatch(newCurrentRoom(data.room))
-        );
+        socket.on('room created', (data) => {
+            dispatch(newCurrentRoom(data.room));
+            dispatch(
+                newMessage(
+                    'Le salon a bien été créer, retrouvez le dans le menu vos salon !'
+                )
+            );
+        });
         socket.on('create error', (data) =>
             dispatch(newErrorMessage(data.error))
         );
     };
 }
 
+/**
+ *
+ * @param payload - { roomName: string, roomPass: string }
+ * @returns {(function(*, *): void)|*}
+ */
 export function joinRoom(payload) {
     return function (dispatch, getState) {
         const { socket } = getState().server;
