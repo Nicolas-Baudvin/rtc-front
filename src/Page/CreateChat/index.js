@@ -2,8 +2,16 @@ import Header from '../../Components/Header';
 import './style.scss';
 import Form from '../../Components/Form';
 import { useReducer } from 'react';
-import { dispatchByInputName, initialState, reducer } from './reducer';
+import {
+    dispatchByInputName,
+    initialState,
+    makeAction,
+    reducer,
+} from './reducer';
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { RoomValidation } from '../../Utils/';
+import { createRoom } from '../../Store/Rooms/actions';
 
 const inputs = [
     {
@@ -31,17 +39,25 @@ const inputs = [
 ];
 
 function CreateChat() {
-    const [state, dispatch] = useReducer(reducer, initialState);
+    const [state, localDispatch] = useReducer(reducer, initialState);
     const history = useHistory();
+    const dispatch = useDispatch();
 
     const onSubmit = (e) => {
         e.preventDefault();
+        const errors = new RoomValidation(state).getErrors();
+        if (Object.keys(errors).length) {
+            return localDispatch(makeAction('NEW_ERRORS', errors));
+        }
+        return dispatch(
+            createRoom({ roomName: state.roomName, roomPass: state.roomPass })
+        );
     };
 
     const onClickBack = () => history.push('/dashboard');
 
     const onChange = (e, inputName) => {
-        dispatchByInputName(inputName, dispatch)(e);
+        dispatchByInputName(inputName, localDispatch)(e);
     };
 
     return (
@@ -53,7 +69,7 @@ function CreateChat() {
                 inputs={inputs}
                 state={state}
                 isLoading={false}
-                errors={{}}
+                errors={state.errors}
             />
             <p> ou </p>
             <button onClick={onClickBack} className={'button button-border'}>
