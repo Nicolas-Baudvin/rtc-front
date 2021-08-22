@@ -1,6 +1,7 @@
 import { mount } from 'enzyme';
 import CreateChat from './index';
 import { useSelector as useSelectorMock } from 'react-redux';
+import { createRoom } from '../../Store/Rooms/actions';
 
 const mockDispatch = jest.fn();
 jest.mock('react-redux', () => ({
@@ -46,5 +47,20 @@ describe('CreateChat Component', () => {
         expect(wrapper.find('input').first().props().value).toEqual(
             expectedValue
         );
+    });
+
+    it('should call dispatch on submit', () => {
+        const expectedRoomName = 'test';
+        const expectedRoomPass = 'TestTest';
+        wrapper
+            .find('input')
+            .first()
+            .simulate('change', { target: { value: expectedRoomName } });
+        wrapper
+            .find('input')
+            .last()
+            .simulate('change', { target: { value: expectedRoomPass } });
+        wrapper.find('form').simulate('submit');
+        expect(mockDispatch).toHaveBeenCalled();
     });
 });
