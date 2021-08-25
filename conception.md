@@ -21,8 +21,7 @@
 1. En tant qu'utilisateur de salon, je peux envoyer des messages dans un salon afin de discuter avec les personnes présentes.
 2. En tant qu'utilisateur de salon, je peux quitter le salon afin de revenir au menu.
 3. En tant qu'utilisateur de salon, je peux me déconnecter du salon définitivement.
-4. En tant qu'utilisateur de salon, je peux envoyer des émoticones.
-5. En tant qu'utilisateur de salon, je peux consulter les règles de comportement (charte) des salons.
+4. En tant qu'utilisateur de salon, je peux consulter les règles de comportement (charte) des salons.
 
 ### Créateur de salon
 
@@ -37,9 +36,9 @@
 ## II. Technologies
 
 Front-end => React.js / Sass.
-Back-end => Socket.io / Node.js.
+Back-end => Node.js. / Socket.io
 
-## III. Todo List
+## III. Todo List V1
 
 
 |Todo|In progress|Done
@@ -49,14 +48,25 @@ Back-end => Socket.io / Node.js.
 |Message de succès lors de la création de compte|✔|✔|
 |Message d'erreur lors de l'inscription (ex: erreur sur un champs)|✔|✔|
 |Message d'erreur qui s'affiche sur une petite popup pour la connexion / inscription|✔|✔|
-|Amélioration de la validation des champs lors de la création de compte|✔||
-|Page mon compte|✔||
+|Amélioration de la validation des champs lors de la création de compte|✔|✔|
+|Page mon compte|✔|✔|
+|Page mon compte rework|✔||
 |Dashboard|✔|✔|
 |Page 404|✔|✔|
 |Création d'un salon|✔|✔|
 |Rejoindre un salon|✔|✔|
 |Envoie de message|✔|✔|
 |Page de Chat|✔||
-|Page d'accueil|✔||
-
-
+|Page d'accueil|||
+|Rejoindre le salon directement après envoie du formulaire (création / joindre chat)|||
+|Affichage d'une icone indiquant le chargement sur la page 'Mes Salons'|||
+|Se déconnecter d'un salon|||
+|Quitter un salon|||
+|Affichage des personnes en ligne|||
+|Mettre à disposition une banque d'image de profil|||
+|Mettre à jour le menu en remplaçant le bouton 'service' par 'à propos'|||
+|Page à Propos|||
+|Pied de page|||
+|Oublie de mot de passe|||
+|Gestion de salon (admin / modo)|||
+|Afficher règle d'utilisation du chat|||
