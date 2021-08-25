@@ -58,9 +58,11 @@ export function getRooms() {
             _id: getState().user._id,
             token: getState().user.token,
             username: getState().user.username,
+            socketID: getState().user.socketID,
         };
         return fetchRooms(userData)
             .then((res) => {
+                console.log(res.data);
                 dispatch(newRooms(res.data.rooms));
             })
             .catch((err) => {
@@ -115,14 +117,42 @@ export function joinRoom(payload) {
             email: getState().user.email,
             _id: getState().user._id,
             token: getState().user.token,
+            username: getState().user.username,
         };
 
         socket.emit('join room', { ...userData, ...payload });
-        socket.on('room created', (data) =>
-            dispatch(newCurrentRoom(data.room))
-        );
+        socket.on('room joined', (data) => {
+            dispatch(newCurrentRoom(data.room));
+        });
         socket.on('join error', (data) =>
             dispatch(newErrorMessage(data.error))
         );
+    };
+}
+
+export function sendMessage(payload) {
+    return function (dispatch, getState) {
+        const { socket } = getState().server;
+        const { current } = getState().rooms;
+        const userData = {
+            email: getState().user.email,
+            _id: getState().user._id,
+            token: getState().user.token,
+            username: getState().user.username,
+            picture: getState().user.picture,
+        };
+        socket.emit('send message', {
+            ...userData,
+            message: payload,
+            room: { name: current.name, _id: current._id },
+        });
+        socket.on('message sent', (data) => {
+            console.log(data);
+            dispatch(newCurrentRoom(data.room));
+        });
+        socket.on('message error', (data) => {
+            console.log(data);
+            dispatch(newErrorMessage(data.error));
+        });
     };
 }
