@@ -38,6 +38,9 @@ export function reducer(state, action) {
                 errors: action.payload,
             };
         }
+        case 'CLEAR_FIELDS': {
+            return initialState;
+        }
         default:
             return state;
     }
