@@ -1,9 +1,12 @@
 import Header from '../../Components/Header';
-import { useReducer } from 'react';
+import { useEffect, useReducer } from 'react';
 import { initialState, reducer } from '../CreateChat/reducer';
 import { dispatchByInputName } from '../CreateChat/reducer';
 import Form from '../../Components/Form';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { joinRoom } from '../../Store/Rooms/actions';
+import { makeAction } from '../Login/util';
+import { newMessage } from '../../Store/Message/actions';
 
 const inputs = [
     {
@@ -31,16 +34,40 @@ const inputs = [
 ];
 
 function JoinChat() {
-    const [state, dispatch] = useReducer(reducer, initialState);
+    const [state, localDispatch] = useReducer(reducer, initialState);
     const { isLoading } = useSelector((state) => state.user);
+    const { current } = useSelector((state) => state.rooms);
+    const dispatch = useDispatch();
 
     const onSubmit = (e) => {
         e.preventDefault();
+        const { roomName, roomPass } = state;
+        if (!roomName || !roomPass) {
+            // TODO: error
+            return;
+        }
+        dispatch(
+            joinRoom({
+                room: {
+                    name: roomName,
+                    password: roomPass,
+                },
+            })
+        );
+        localDispatch(makeAction('CLEAR_FIELDS'));
     };
 
     const onChange = (e, inputName) => {
-        dispatchByInputName(inputName, dispatch)(e);
+        dispatchByInputName(inputName, localDispatch)(e);
     };
+
+    useEffect(() => {
+        if (current) {
+            dispatch(
+                newMessage("Le salon est disponible dans le menu 'Mes Salons'.")
+            );
+        }
+    }, [current]);
 
     return (
         <div className={'join'}>
@@ -50,7 +77,7 @@ function JoinChat() {
                 onChange={onChange}
                 state={state}
                 onSubmit={onSubmit}
-                errors={state}
+                errors={state.errors}
                 isLoading={isLoading}
             />
         </div>
