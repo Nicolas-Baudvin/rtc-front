@@ -53,9 +53,10 @@ Back-end => Socket.io / Node.js.
 |Page mon compte|✔||
 |Dashboard|✔|✔|
 |Page 404|✔|✔|
-|Création d'un salon|||
-|Rejoindre un salon|||
-|Envoie de message|||
+|Création d'un salon|✔|✔|
+|Rejoindre un salon|✔|✔|
+|Envoie de message|✔|✔|
+|Page de Chat|✔||
 |Page d'accueil|✔||
 
 
