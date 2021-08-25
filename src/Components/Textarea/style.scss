@@ -1,0 +1,16 @@
+.textarea {
+  border: .5px solid #1D97D6;
+  border-radius: 4px;
+  min-width: 276px;
+  min-height: 73px;
+  box-shadow: 1px 2px 4px rgba(0,0,0,.4);
+  outline: none;
+
+  &:focus {
+    border: .5px solid #1D97D6;
+  }
+
+  &:focus-visible {
+    border-color: #1D97D6;
+  }
+}
