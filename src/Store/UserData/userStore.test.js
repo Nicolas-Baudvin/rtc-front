@@ -182,56 +182,6 @@ describe('User Redux Store', () => {
         });
     });
 
-    it('should display a message after password update', () => {
-        const store = mockStore({ user: { token: 'jwt' } });
-        const expectedActions = [
-            { type: FETCHING_NEW_USER_DATA },
-            {
-                type: NEW_MESSAGE,
-                payload: { message: 'Votre mot de passe a été mis à jour' },
-            },
-        ];
-
-        axios.mockImplementationOnce(() =>
-            Promise.resolve({
-                data: {
-                    message: 'Votre mot de passe a été mis à jour',
-                },
-            })
-        );
-
-        return store.dispatch(changePassword({})).then(() => {
-            expect(store.getActions()).toEqual(expectedActions);
-        });
-    });
-
-    it('should display an error message after password update failed', () => {
-        const store = mockStore({ user: { token: 'jwt' } });
-        const expectedActions = [
-            { type: FETCHING_NEW_USER_DATA },
-            {
-                type: NEW_ERROR_MESSAGE,
-                payload: {
-                    message:
-                        'Une erreur est survenue lors de la mise à jour de vos données',
-                },
-            },
-        ];
-
-        axios.mockImplementationOnce(() =>
-            Promise.reject({
-                data: {
-                    message:
-                        'Une erreur est survenue lors de la mise à jour de vos données',
-                },
-            })
-        );
-
-        return store.dispatch(changePassword({})).then(() => {
-            expect(store.getActions()).toEqual(expectedActions);
-        });
-    });
-
     it('should display a message after user datas update & store the user datas', () => {
         const store = mockStore({ user: { token: 'jwt' } });
         const expectedActions = [
