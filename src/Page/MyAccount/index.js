@@ -14,6 +14,7 @@ import Form from '../../Components/Form';
 import { useHistory } from 'react-router-dom';
 import { PasswordValidation, Validation } from '../../Utils';
 import { changeUserDatas } from '../../Store/UserData/actions';
+import { inputs } from './inputs';
 
 const dispatchByInputName = (inputName, dispatch) =>
     ({
@@ -22,53 +23,6 @@ const dispatchByInputName = (inputName, dispatch) =>
         newPass: (e) => dispatch(newPasswordValue(e.target.value)),
         newPassConf: (e) => dispatch(newPassConfValue(e.target.value)),
     }[inputName]);
-
-const inputs = [
-    {
-        inputProps: {
-            name: 'email',
-            type: 'email',
-            info: '',
-        },
-        labelProps: {
-            htmlFor: 'email',
-        },
-        labelTitle: 'Mon email',
-    },
-    {
-        inputProps: {
-            name: 'newPass',
-            type: 'password',
-            info: 'Le mot de passe doit faire entre 8 et 30 caractères',
-        },
-        labelProps: {
-            htmlFor: 'newPass',
-        },
-        labelTitle: 'Nouveau mot de passe',
-    },
-    {
-        inputProps: {
-            name: 'newPassConf',
-            type: 'password',
-            info: 'Les mots de passes doivent être identiques',
-        },
-        labelProps: {
-            htmlFor: 'newPassConf',
-        },
-        labelTitle: 'Confirmez mot de passe',
-    },
-    {
-        inputProps: {
-            name: 'username',
-            type: 'text',
-            info: '',
-        },
-        labelProps: {
-            htmlFor: 'username',
-        },
-        labelTitle: 'Mon pseudonyme',
-    },
-];
 
 const createUserdataObject = (state) => ({
     email: state.email,
