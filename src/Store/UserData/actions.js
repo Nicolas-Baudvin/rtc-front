@@ -163,26 +163,6 @@ export function checkToken(payload) {
     };
 }
 
-export function changePassword(payload) {
-    return function (dispatch, getState) {
-        dispatch(fetchingNewUserData());
-        const token = getState().user.token;
-        return patchUserPassword({ payload, token })
-            .then((res) => {
-                return dispatch(newMessage(res.data.message));
-            })
-            .catch((err) => {
-                console.error(err);
-                return dispatch(
-                    newErrorMessage(
-                        err.response?.data?.error ||
-                            'Une erreur est survenue lors de la mise à jour de vos données'
-                    )
-                );
-            });
-    };
-}
-
 export function changeUserDatas(payload) {
     return function (dispatch, getState) {
         dispatch(fetchingNewUserData());
