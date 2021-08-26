@@ -44,7 +44,7 @@ describe('My Account Component', () => {
         expect(value).toEqual(expectedValue);
     });
 
-    it('should call dispatch on user data form submit', () => {
+    it('should call dispatch on form submit', () => {
         const inputs = wrapper.find('form').first().find('input');
         inputs.forEach((input) => {
             if (input.props().type === 'email') {
@@ -57,28 +57,13 @@ describe('My Account Component', () => {
         expect(mockDispatch).toHaveBeenCalled();
     });
 
-    it('should not call dispatch on pass form submit because of errors', () => {
+    it('should not call dispatch on form submit because of errors', () => {
         const inputs = wrapper.find('form').first().find('input');
         inputs.forEach((input) => {
             if (input.props().type === 'email')
                 input.simulate('change', { target: { value: 'test' } });
         });
         wrapper.find('form').first().simulate('submit');
-        expect(mockDispatch).toHaveBeenCalledTimes(0);
-    });
-
-    it('should call dispatch on pass form submit', () => {
-        const inputs = wrapper.find('form').last().find('input');
-        inputs.forEach((input) => {
-            input.simulate('change', { target: { value: 'Test-Test' } });
-        });
-        wrapper.find('form').last().simulate('submit');
-
-        expect(mockDispatch).toHaveBeenCalled();
-    });
-
-    it('should not call dispatch on pass form submit because of errors', () => {
-        wrapper.find('form').last().simulate('submit');
         expect(mockDispatch).toHaveBeenCalledTimes(0);
     });
 
