@@ -7,6 +7,7 @@ import {
     newEmailValue,
     newPassConfValue,
     newPasswordValue,
+    newPictureValue,
     newUsernameValue,
     reducer,
 } from './reducer';
@@ -15,6 +16,7 @@ import { useHistory } from 'react-router-dom';
 import { PasswordValidation, Validation } from '../../Utils';
 import { changeUserDatas } from '../../Store/UserData/actions';
 import { inputs } from './inputs';
+import PicturesInput from '../../Components/PicturesInput';
 
 const dispatchByInputName = (inputName, dispatch) =>
     ({
@@ -29,6 +31,7 @@ const createUserdataObject = (state) => ({
     username: state.username,
     newPass: state.newPass,
     newPassConf: state.newPassConf,
+    picture: state.picture,
 });
 
 function MyAccount() {
@@ -39,21 +42,28 @@ function MyAccount() {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const [state, locaDispatch] = useReducer(
+    const [state, localDispatch] = useReducer(
         reducer,
         initialState({ email, username, picture })
     );
 
     const onChange = (e, inputName) => {
-        dispatchByInputName(inputName, locaDispatch)(e);
+        dispatchByInputName(inputName, localDispatch)(e);
     };
 
-    const onClick = () => {};
+    const onClick = (e, img) => {
+        localDispatch(newPictureValue(img.url));
+    };
 
-    const onSubmit = () => {
+    const onSubmit = (e) => {
+        let errors = {},
+            passErrors = {};
+        e.preventDefault();
         setErrors({});
-        const errors = new Validation(state).getErrors();
-        const passErrors = new PasswordValidation(state).getErrors();
+        errors = new Validation(state).getErrors();
+        if (state.newPass) {
+            passErrors = new PasswordValidation(state).getErrors();
+        }
         if (Object.keys(errors).length || Object.keys(passErrors).length) {
             return setErrors({ ...errors, ...passErrors });
         }
@@ -76,6 +86,7 @@ function MyAccount() {
                 onChange={onChange}
                 isLoading={isLoading}
                 errors={errors}
+                children={<PicturesInput onClick={onClick} />}
             />
             <button className={'account-delete button'} onClick={onClick}>
                 Supprimer mon compte
