@@ -50,7 +50,7 @@ Back-end => Node.js. / Socket.io
 |Message d'erreur qui s'affiche sur une petite popup pour la connexion / inscription|✔|✔|
 |Amélioration de la validation des champs lors de la création de compte|✔|✔|
 |Page mon compte|✔|✔|
-|Page mon compte rework|✔||
+|Page mon compte rework|✔|✔|
 |Dashboard|✔|✔|
 |Page 404|✔|✔|
 |Création d'un salon|✔|✔|
@@ -70,3 +70,4 @@ Back-end => Node.js. / Socket.io
 |Oublie de mot de passe|||
 |Gestion de salon (admin / modo)|||
 |Afficher règle d'utilisation du chat|||
+|Breakpoint Desktop CSS|||
