@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { get } from 'enzyme/build/configuration';
 import { newErrorMessage, newMessage } from '../Message/actions';
 import axiosErrorHandler from '../../Utils/axiosErrorHandler';
 
