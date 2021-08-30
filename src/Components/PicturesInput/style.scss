@@ -1,0 +1,24 @@
+.images {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  &-text {
+    margin: .3rem 0;
+  }
+
+  &-container {
+    display: flex;
+  }
+
+  &-item {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin: 0 .5rem;
+    transition: .2s ease-in-out;
+    &-selected {
+      box-shadow: 0 0 0 2px #1D97D6;
+    }
+  }
+}
