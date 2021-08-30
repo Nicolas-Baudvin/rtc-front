@@ -4,7 +4,15 @@ import './style.scss';
 import cx from 'classnames';
 import { VscLoading } from 'react-icons/vsc';
 
-function Form({ inputs, onSubmit, onChange, state, isLoading, errors }) {
+function Form({
+    inputs,
+    onSubmit,
+    onChange,
+    state,
+    isLoading,
+    errors,
+    children,
+}) {
     return (
         <form className={'form'} onSubmit={onSubmit} action="">
             {inputs.map((input, i) => (
@@ -20,6 +28,7 @@ function Form({ inputs, onSubmit, onChange, state, isLoading, errors }) {
                     error={errors[input.inputProps.name]}
                 />
             ))}
+            {children}
 
             <button className={cx('button', { 'button-loading': isLoading })}>
                 {isLoading ? <VscLoading /> : 'Valider'}
