@@ -71,33 +71,21 @@ function fetchTokenAuthorization({ token }) {
         url: 'http://localhost:5000/api/user/check/',
         method: 'post',
         headers: {
-            authorization: token,
+            authorization: `Bearer ${token}`,
         },
     });
 }
 
-function patchUserData({ payload, token }) {
-    return axios({
-        url: 'http://localhost:5000/api/user/',
-        method: 'PUT',
-        headers: {
-            authorization: token,
-        },
-        data: {
-            ...payload,
-        },
-    });
-}
-
-function patchUserPassword({ payload, token }) {
+function patchUserData({ payload, token, _id }) {
     return axios({
         url: 'http://localhost:5000/api/user/',
         method: 'PATCH',
         headers: {
-            authorization: token,
+            authorization: `Bearer ${token}`,
         },
         data: {
             ...payload,
+            _id,
         },
     });
 }
@@ -167,13 +155,15 @@ export function changeUserDatas(payload) {
     return function (dispatch, getState) {
         dispatch(fetchingNewUserData());
         const token = getState().user.token;
-        return patchUserData({ payload, token })
+        return patchUserData({ payload, _id: getState().user._id, token })
             .then((res) => {
+                console.log(res.data);
                 dispatch(newMessage('Vos données ont été mis à jour'));
                 return dispatch(newUserData(res.data));
             })
             .catch((err) => {
                 console.error(err);
+                dispatch(stopLoading());
                 return dispatch(
                     newErrorMessage(
                         err.response?.data?.error ||
