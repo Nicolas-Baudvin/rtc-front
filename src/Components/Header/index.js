@@ -11,7 +11,7 @@ import { disconnect } from '../../Store/WebSocket/actions';
 function Header({ page }) {
     const history = useHistory();
     const dispatch = useDispatch();
-    const { token, username } = useSelector((state) => state.user);
+    const { token, username, picture } = useSelector((state) => state.user);
 
     const onClickLogout = () => {
         history.push('/connexion');
@@ -33,7 +33,11 @@ function Header({ page }) {
         <header className={'header'}>
             <div className={'header-block'}>
                 <div onClick={onClickMyProfil} className={'header-user'}>
-                    <AiOutlineUser />
+                    {picture ? (
+                        <img src={picture} alt={'user image'} />
+                    ) : (
+                        <AiOutlineUser />
+                    )}
                     <div className={'header-user__username'}>{username}</div>
                 </div>
                 <div className={'header-buttons'}>
