@@ -19,7 +19,7 @@ function ChatMessage({ message }) {
             <div className={'chat-message-user'}>
                 <div className={'chat-message-user-picture'}>
                     {Boolean(message.authorPicture) ? (
-                        <img src={message.authorPicture} />
+                        <img src={message.authorPicture} alt={'user image'} />
                     ) : (
                         <AiOutlineUser />
                     )}
@@ -38,10 +38,12 @@ function ChatMessage({ message }) {
 }
 
 ChatMessage.propTypes = {
-    desc: PropTypes.string.isRequired,
-    author: PropTypes.string.isRequired,
-    authorPicture: PropTypes.string,
-    date: PropTypes.string,
+    message: PropTypes.shape({
+        desc: PropTypes.string.isRequired,
+        author: PropTypes.string.isRequired,
+        authorPicture: PropTypes.string,
+        date: PropTypes.string,
+    }),
 };
 
 export default ChatMessage;
