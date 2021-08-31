@@ -6,6 +6,11 @@ export const NEW_ROOMS = 'NEW_ROOMS';
 export const CLEAR_ROOMS = 'CLEAR_ROOMS';
 export const NEW_CURRENT_ROOM = 'NEW_CURRENT_ROOM';
 export const LOADING_ROOMS = 'LOADING_ROOMS';
+export const CLEAR_CURRENT_ROOM = 'CLEAR_CURRENT_ROOM';
+
+export const clearCurrentRoom = () => ({
+    type: CLEAR_CURRENT_ROOM,
+});
 
 export const newRooms = (payload) => ({
     type: NEW_ROOMS,
@@ -24,6 +29,21 @@ export const newCurrentRoom = (payload) => ({
 export const loadingRooms = () => ({
     type: LOADING_ROOMS,
 });
+
+/**
+ * Utils
+ */
+
+function getUserDataFromState(state) {
+    const { email, _id, token, username, socketID } = state.user;
+    return {
+        email,
+        _id,
+        token,
+        username,
+        socketID,
+    };
+}
 
 /**
  * API Query
@@ -52,13 +72,7 @@ async function fetchRooms(payload) {
 export function getRooms() {
     return function (dispatch, getState) {
         dispatch(loadingRooms());
-        const userData = {
-            email: getState().user.email,
-            _id: getState().user._id,
-            token: getState().user.token,
-            username: getState().user.username,
-            socketID: getState().user.socketID,
-        };
+        const userData = getUserDataFromState(getState());
         return fetchRooms(userData)
             .then((res) => {
                 console.log(res.data);
@@ -82,12 +96,7 @@ export function getRooms() {
 export function createRoom(payload) {
     return function (dispatch, getState) {
         const { socket } = getState().server;
-        const userData = {
-            email: getState().user.email,
-            _id: getState().user._id,
-            token: getState().user.token,
-            username: getState().user.username,
-        };
+        const userData = getUserDataFromState(getState());
 
         socket.emit('create room', { ...userData, ...payload });
         socket.on('room created', (data) => {
@@ -112,12 +121,7 @@ export function createRoom(payload) {
 export function joinRoom(payload) {
     return function (dispatch, getState) {
         const { socket } = getState().server;
-        const userData = {
-            email: getState().user.email,
-            _id: getState().user._id,
-            token: getState().user.token,
-            username: getState().user.username,
-        };
+        const userData = getUserDataFromState(getState());
 
         socket.emit('join room', { ...userData, ...payload });
         socket.on('room joined', (data) => {
@@ -133,25 +137,42 @@ export function sendMessage(payload) {
     return function (dispatch, getState) {
         const { socket } = getState().server;
         const { current } = getState().rooms;
-        const userData = {
-            email: getState().user.email,
-            _id: getState().user._id,
-            token: getState().user.token,
-            username: getState().user.username,
-            picture: getState().user.picture,
-        };
+        const userData = getUserDataFromState(getState());
         socket.emit('send message', {
             ...userData,
             message: payload,
             room: { name: current.name, _id: current._id },
         });
-        socket.on('message sent', (data) => {
-            console.log(data);
-            dispatch(newCurrentRoom(data.room));
-        });
         socket.on('message error', (data) => {
-            console.log(data);
             dispatch(newErrorMessage(data.error));
+        });
+    };
+}
+
+export function disconnectFromRoom() {
+    return function (dispatch, getState) {
+        const { socket } = getState().server;
+        const { current } = getState().rooms;
+        const userData = getUserDataFromState(getState());
+
+        socket.emit('member disconnect', {
+            ...userData,
+            room: { name: current.name, _id: current._id },
+        });
+
+        socket.on('disconnected success', () => {
+            dispatch(
+                newMessage(`Vous êtes déconnectés du salon ${current.name}`)
+            );
+            dispatch(clearCurrentRoom());
+        });
+
+        socket.on('disconnect error', (err) => {
+            dispatch(
+                newErrorMessage(
+                    'Une erreur est survenue lors de la tentative de déconnexion.'
+                )
+            );
         });
     };
 }
