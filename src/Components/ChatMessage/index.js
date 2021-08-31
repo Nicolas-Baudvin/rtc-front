@@ -19,7 +19,7 @@ function ChatMessage({ message }) {
             <div className={'chat-message-user'}>
                 <div className={'chat-message-user-picture'}>
                     {Boolean(message.authorPicture) ? (
-                        <img src={message.authorPicture} alt={'user image'} />
+                        <img src={message.authorPicture} alt={'user'} />
                     ) : (
                         <AiOutlineUser />
                     )}
