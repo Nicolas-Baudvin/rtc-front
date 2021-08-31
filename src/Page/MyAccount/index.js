@@ -14,7 +14,10 @@ import {
 import Form from '../../Components/Form';
 import { useHistory } from 'react-router-dom';
 import { PasswordValidation, Validation } from '../../Utils';
-import { changeUserDatas } from '../../Store/UserData/actions';
+import {
+    changeUserDatas,
+    deleteUserAction,
+} from '../../Store/UserData/actions';
 import { inputs } from './inputs';
 import PicturesInput from '../../Components/PicturesInput';
 
@@ -55,6 +58,10 @@ function MyAccount() {
         localDispatch(newPictureValue(img.url));
     };
 
+    const handleDelete = () => {
+        dispatch(deleteUserAction());
+    };
+
     const onSubmit = (e) => {
         let errors = {},
             passErrors = {};
@@ -88,7 +95,7 @@ function MyAccount() {
                 errors={errors}
                 children={<PicturesInput onClick={onClick} />}
             />
-            <button className={'account-delete button'} onClick={onClick}>
+            <button className={'account-delete button'} onClick={handleDelete}>
                 Supprimer mon compte
             </button>
         </div>

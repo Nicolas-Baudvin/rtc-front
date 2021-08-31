@@ -90,6 +90,19 @@ function patchUserData({ payload, token, _id }) {
     });
 }
 
+function deleteUser({ payload, token }) {
+    return axios({
+        url: 'http://localhost:5000/api/user/',
+        method: 'delete',
+        data: {
+            ...payload,
+        },
+        headers: {
+            authorization: `Bearer ${token}`,
+        },
+    });
+}
+
 /**
  * Async Actions
  */
@@ -168,6 +181,26 @@ export function changeUserDatas(payload) {
                     newErrorMessage(
                         err.response?.data?.error ||
                             'Une erreur est survenue lors de la mise à jour de vos données.'
+                    )
+                );
+            });
+    };
+}
+
+export function deleteUserAction() {
+    return function (dispatch, getState) {
+        const { token, _id, email } = getState().user;
+        return deleteUser({ payload: { _id, email }, token })
+            .then((res) => {
+                dispatch(newMessage(res.data.message));
+                dispatch(logout());
+            })
+            .catch((err) => {
+                console.log(err);
+                dispatch(
+                    newErrorMessage(
+                        err?.response?.data?.error ||
+                            'Une erreur est survenue, réessayez'
                     )
                 );
             });
