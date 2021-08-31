@@ -23,6 +23,10 @@ function socketEventListener(socket, dispatch) {
     socket.on('message error', (data) => {
         dispatch(newErrorMessage(data.error));
     });
+
+    socket.on('member disconnect', (data) => {
+        dispatch(newCurrentRoom(data.room));
+    });
 }
 
 export function connect() {
