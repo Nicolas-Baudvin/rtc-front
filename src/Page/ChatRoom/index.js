@@ -1,11 +1,11 @@
 import Header from '../../Components/Header';
 import './style.scss';
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { joinRoom, sendMessage } from '../../Store/Rooms/actions';
-import ChatMessage from '../../Components/ChatMessage';
+import { joinRoom } from '../../Store/Rooms/actions';
 import ChatForm from '../../Components/ChatForm';
+import ChatMessages from './Messages';
 
 function ChatRoom() {
     const { current } = useSelector((state) => state.rooms);
@@ -27,18 +27,7 @@ function ChatRoom() {
         <div className={`chat`}>
             <Header page={`Chat ${name}`} />
             <div className={'chat-container'}>
-                <div className={'chat-messages'}>
-                    {current && current.messages.length > 0 ? (
-                        current.messages.map((message, i) => (
-                            <ChatMessage key={i} message={message} />
-                        ))
-                    ) : (
-                        <p className={'chat-message-empty'}>
-                            Ce chat n'a pas encore de messages, qu'attendez vous
-                            ?
-                        </p>
-                    )}
-                </div>
+                <ChatMessages current={current} />
                 <ChatForm />
             </div>
         </div>
