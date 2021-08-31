@@ -21,8 +21,8 @@ function ChatForm() {
             // TODO: errors
             return;
         }
-        setValue('');
-        return dispatch(sendMessage(value));
+        dispatch(sendMessage(value));
+        return setValue('');
     };
 
     return (
