@@ -1,12 +1,16 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Header from '../../Components/Header';
 import { useEffect, useReducer } from 'react';
-import { initialState, reducer } from '../CreateChat/reducer';
-import { dispatchByInputName } from '../CreateChat/reducer';
+import {
+    initialState,
+    reducer,
+    dispatchByInputName,
+} from '../CreateChat/reducer';
 import Form from '../../Components/Form';
 import { useDispatch, useSelector } from 'react-redux';
 import { joinRoom } from '../../Store/Rooms/actions';
 import { makeAction } from '../Login/util';
-import { newMessage } from '../../Store/Message/actions';
+import { useHistory } from 'react-router-dom';
 
 const inputs = [
     {
@@ -38,6 +42,7 @@ function JoinChat() {
     const { isLoading } = useSelector((state) => state.user);
     const { current } = useSelector((state) => state.rooms);
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -63,9 +68,7 @@ function JoinChat() {
 
     useEffect(() => {
         if (current) {
-            dispatch(
-                newMessage("Le salon est disponible dans le menu 'Mes Salons'.")
-            );
+            history.push(`/salons/${current.name}/${current._id}`);
         }
     }, [current]);
 
