@@ -75,7 +75,6 @@ export function getRooms() {
         const userData = getUserDataFromState(getState());
         return fetchRooms(userData)
             .then((res) => {
-                console.log(res.data);
                 dispatch(newRooms(res.data.rooms));
             })
             .catch((err) => {
