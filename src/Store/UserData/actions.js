@@ -170,7 +170,6 @@ export function changeUserDatas(payload) {
         const token = getState().user.token;
         return patchUserData({ payload, _id: getState().user._id, token })
             .then((res) => {
-                console.log(res.data);
                 dispatch(newMessage('Vos données ont été mis à jour'));
                 return dispatch(newUserData(res.data));
             })
