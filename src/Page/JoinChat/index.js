@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { joinRoom } from '../../Store/Rooms/actions';
 import { makeAction } from '../Login/util';
 import { useHistory } from 'react-router-dom';
+import './style.scss';
 
 const inputs = [
     {

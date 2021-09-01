@@ -65,14 +65,12 @@ describe('<JoinChat />', () => {
         expect(mockDispatch).toHaveBeenCalled();
     });
 
-    it('should call dispatch if current room is available', () => {
+    it('should call history push if current room is available', () => {
         useSelectorMock.mockImplementation(() => ({
             isLoading: false,
             current: { name: 'Test' },
         }));
         wrapper = mount(<JoinChat />);
-        expect(mockDispatch).toHaveBeenCalledWith(
-            newMessage("Le salon est disponible dans le menu 'Mes Salons'.")
-        );
+        expect(mockHistoryPush).toHaveBeenCalled();
     });
 });
